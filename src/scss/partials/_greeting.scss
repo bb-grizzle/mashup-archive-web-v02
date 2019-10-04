@@ -1,0 +1,19 @@
+.Greeting{
+  padding: 3.75rem 0 1.25rem 0;
+  .con-body{
+    position: relative;
+  }
+  h3{
+    font-style: italic;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  p{
+    font-family: $font-nanum;
+    font-size: 1.5rem;
+  }
+  .btn-add{
+    right: 0;
+    top: 0;
+  }
+}

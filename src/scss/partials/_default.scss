@@ -1,0 +1,40 @@
+
+// init
+*{
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 0;
+  // margin: 0;
+  list-style: none;
+}
+
+img{
+  vertical-align: top;
+}
+
+// color
+body{
+  background-color: $bg;
+  font-family: $font-lato;
+  font-weight: 400;
+}
+
+// container
+.con-default{
+  width: calc(100vw - #{$size-header-logo}*2 - 2.5rem);
+  height: $size-header-logo;
+  margin: 0 auto;
+}
+
+.con-body{
+  width: calc(100vw - #{$size-header-logo}*2 - 2.5rem);
+  margin: 0 auto;
+}
+
+.btn{
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

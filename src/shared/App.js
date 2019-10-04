@@ -3,6 +3,9 @@ import {Route, Switch} from 'react-router-dom';
 import {Header} from 'components'
 import {Home, Scrap, ScrapDetail, Project, ProjectDetail} from 'pages';
 
+import 'normalize.css';
+import 'scss/style.scss';
+
 class App extends Component {
   render() {
     return (

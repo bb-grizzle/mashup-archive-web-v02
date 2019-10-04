@@ -42,7 +42,7 @@ class Header extends React.Component {
       <header>
         <Link to = {window.innerWidth > 576 ? "/" : this.state.nowpage} className="logo-header" onClick = {this.handleLogoClick}><img src = {logo} alt = "logo" /></Link>
 
-        <div className = "con-header">
+        <div className = "con-default">
           {/* gnb - web */}
           <div className = "gnb">
             <div className="header-info">
