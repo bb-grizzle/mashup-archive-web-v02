@@ -1,0 +1,83 @@
+@import './palette.scss';
+
+// init
+*{
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 0;
+  // margin: 0;
+  list-style: none;
+}
+
+img{
+  vertical-align: top;
+}
+
+// color
+body{
+  background-color: $bg;
+  font-family: $font-lato;
+  font-weight: 400;
+}
+
+// header
+header{
+}
+
+.con-header{
+  width: calc(100vw - #{$size-header-logo}*2 - 68px);
+  height: $size-header-logo;
+
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-header{
+  width: $size-header-logo;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  img{
+    width: 100%;
+  }
+}
+
+.user-info{
+  display: flex;
+
+  .user-team{
+    text-transform: capitalize;
+    font-size: 1.5rem;
+    border-right: 2px solid black;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+
+  .user-name{
+    font-family: $font-nanum;
+    font-size: 1rem;
+    font-weight: lighter;
+    line-height: 2rem;
+  }
+}
+
+nav ul{
+  display: flex;
+  a{
+    font-size: 1.2rem;
+    color: black;
+    opacity: 0.5;
+    transition: $transition-default;
+    display: inline-block;
+    padding: 20px;
+  }
+  a:hover{
+    opacity: 1;
+  }
+  a.active{
+    opacity: 1;
+  }
+}
