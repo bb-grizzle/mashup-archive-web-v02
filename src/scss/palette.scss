@@ -8,11 +8,45 @@ $border-test-r: 2px solid red;
 // container
 
 // size
-$size-header-logo: 64px;
+$size-header-logo: 4rem;
 
 // font
 $font-nanum: 'NanumSquare', sans-serif;
 $font-lato: 'lato', sans-serif;
 
 // transition
-$transition-default: all .2s ease-in-out;
+$transition-default: all 0.6s cubic-bezier(0.54, 0.02, 0.07, 0.99);
+
+// media-query
+$screen-sm-max: 576px;
+$screen-md-max: 768px;
+$screen-lg-max: 992px;
+$screen-xl-max: 1200px;
+
+@mixin screen-sm {
+  @media screen and (max-width: $screen-sm-max){
+    @content;
+  }
+}
+
+@mixin screen-md {
+  @media screen  and (max-width: $screen-md-max){
+    @content;
+  }
+}
+@mixin screen-lg {
+  @media screen  and (max-width: $screen-lg-max){
+    @content;
+  }
+}
+@mixin screen-xl {
+  @media screen  and (max-width: $screen-xl-max){
+    @content;
+  }
+}
+
+@include screen-md{
+  html{
+    font-size: 12px;
+  }
+}
