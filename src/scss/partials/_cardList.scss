@@ -1,0 +1,224 @@
+.CardList{
+  padding: 3rem 0;
+  h5{
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+}
+
+.wrap-card{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 24px;
+}
+
+@include screen-xl{
+  .wrap-card{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@include screen-xl-portrait{
+  .wrap-card{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+@include screen-lg{
+  .wrap-card{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@include screen-sm{
+  .wrap-card{
+    grid-template-columns: 1fr;
+  }
+}
+
+@include screen-md-landscape{
+  .wrap-card{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.Card{
+  position: relative;
+  width: $size-card;
+  padding-bottom: $size-card/1.618;
+  height: 0;
+
+  .wrap{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .contents{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url(https://images.unsplash.com/photo-1570201387176-8e5f6ab43fa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80);
+
+    border-radius: 10px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
+    position: relative;
+    overflow: hidden;
+    padding: $size-card-padding;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    &::before{
+      width: 100%;
+      height: 100%;
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 30%;
+      cursor: pointer;
+
+      /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.5+100 */
+      background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=0 ); /* IE6-9 */
+      transition: $transition-default;
+    }
+
+    &:hover::before{
+      top: 10%;
+    }
+    &:hover .card-title, &:hover .card-descript{
+      bottom: 0;
+    }
+    &:hover .wrap-tag ul{
+      opacity: 1;
+    }
+    &:hover .wrap-tag{
+      &::before{
+        opacity: 0;
+        width: $size-tag*3;
+      }
+    }
+  }
+}
+
+.wrap-tag{
+  position: absolute;
+  top: $size-card-padding;
+  left: $size-card-padding;
+  pointer-events: none;
+
+  &::before{
+    content: "";
+    display: block;
+    width: $size-tag;
+    height: $size-tag;
+    border-radius: $size-tag;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 1;
+    background-color: $color-design;
+    transition: $transition-card;
+  }
+
+  ul{
+    display: flex;
+    opacity: 0;
+    position: relative;
+    z-index: 20;
+    transition: $transition-card;
+  }
+
+  @include touchscreen{
+    ul{
+      opacity: 1;
+    }
+  }
+  @include screen-lg {
+    ul{
+      opacity: 1;
+    }
+  }
+  @include screen-md-landscape{
+    ul{
+      opacity: 1;
+    }
+  }
+  
+
+  li{
+    height: $size-tag;
+    font-size: 1rem;
+    line-height: $size-tag;
+    
+    padding: 0 7px;
+    border-radius: $size-tag;
+    margin-right: 5px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .design li{
+    background-color: $color-design;
+  }
+  .developer li{
+    background-color: $color-developer;
+  }
+}
+
+.wrap-text{
+  pointer-events: none;
+  position: relative;
+  z-index: 20;
+  color: white;
+  overflow: hidden;
+
+  .card-title{
+    font-size: $size-card-title;
+    margin-bottom: 10px;
+    position: relative;
+    transition: $transition-card;
+    bottom: $size-card-descript * $size-card-descript-lineheight * -1;
+  }
+
+  .card-descript{
+    position: relative;
+    font-size: $size-card-descript;
+    line-height: $size-card-descript-lineheight;
+    max-height: $size-card-descript * $size-card-descript-lineheight * 2;
+    height: $size-card-descript * $size-card-descript-lineheight * 2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    bottom: $size-card-descript * $size-card-descript-lineheight * -1;
+    
+    transition: $transition-card;
+  }
+
+  @include screen-lg{
+    .card-title,.card-descript {
+      bottom: 0;
+    }
+  }
+
+  @include screen-md-landscape{
+    .card-title,.card-descript {
+      bottom: 0;
+    }
+  }
+}
+

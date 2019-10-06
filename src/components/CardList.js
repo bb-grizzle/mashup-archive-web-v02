@@ -1,10 +1,21 @@
 import React from 'react';
 import Card from './partial/Card';
 
-const CardList = () => {
+const CardList = (props) => {
   return (
     <div className = "CardList">
-      <Card/>
+      <div className = "con-body">
+        <h5>{props.type}</h5>
+
+        <div className="wrap-card">
+          <Card/>
+          <Card/>
+          <Card/>
+          <Card/>
+          <Card/>
+          <Card/>
+        </div>
+      </div>
     </div>
   );
 }

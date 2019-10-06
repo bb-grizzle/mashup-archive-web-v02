@@ -1,23 +1,51 @@
-.btn-add{
-  position: absolute;
-  cursor: pointer;
-  border-radius: 100%;
-  transition: $transition-default;
+// default btn
+.btn{
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  &:hover{
+// add btn
+.btn-add{
+  cursor: pointer;
+  position: relative;
+  z-index: 20;
+
+  &:hover .btn-add-contetns{
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover .add-line{
+    width:2.6rem; 
   }
 }
 
-.add-line{
-  transition: $transition-default;
+
+.btn-add-contetns{
   width: 80%;
-  height: 2px;
-  background-color: black;
+  height: 80%;
+
+  border-radius: 100%;
+  background-color: $color-bg;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: $transition-btn;
+}
+
+.add-line{
+  transition: $transition-btn;
+  width: 1.7rem;
+  height: 1.5px;
+  background-color: rgb(82, 82, 82);
 }
 
 .add-v{
   transform: rotate(90deg);
   position: absolute;
-
 }

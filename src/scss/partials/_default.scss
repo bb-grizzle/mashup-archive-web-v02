@@ -14,7 +14,7 @@ img{
 
 // color
 body{
-  background-color: $bg;
+  background-color: $color-bg;
   font-family: $font-lato;
   font-weight: 400;
 }
@@ -26,15 +26,18 @@ body{
   margin: 0 auto;
 }
 
+$size-screen-gutter: 1.2rem;
+$size-con-body: calc(100vw - #{$size-header-logo}*2 - #{$size-screen-gutter}*2);
 .con-body{
-  width: calc(100vw - #{$size-header-logo}*2 - 2.5rem);
+  width: $size-con-body;
   margin: 0 auto;
 }
 
-.btn{
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@include screen-md{
+  $size-screen-gutter: 20px;
+  $size-con-body: calc(100vw - #{$size-screen-gutter}*2);
+  .con-body{
+    width: $size-con-body;
+  }
 }
+

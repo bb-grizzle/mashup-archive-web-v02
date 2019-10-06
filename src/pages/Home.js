@@ -3,9 +3,12 @@ import {Greeting, CardList,Footer} from 'components';
 
 function Home(){
   return(
-    <div className="Home">
+    <div className="Home size-header">
       <Greeting />
-      <CardList />
+
+      <CardList type = "recent"/>
+      <CardList type = "new"/>
+      
       <Footer />
     </div>
   )
