@@ -22,7 +22,6 @@ body{
 // container
 .con-default{
   width: calc(100vw - #{$size-header-logo}*2 - 2.5rem);
-  height: $size-header-logo;
   margin: 0 auto;
 }
 

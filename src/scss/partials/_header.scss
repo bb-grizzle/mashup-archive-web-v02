@@ -5,6 +5,10 @@ header{
   width: 100%;
   background-color: $color-bg;
   z-index: 100;
+
+  .con-default{
+    height: $size-header-logo;
+  }
 }
 
 .size-header{
