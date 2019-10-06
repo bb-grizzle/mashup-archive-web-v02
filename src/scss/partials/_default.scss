@@ -12,9 +12,16 @@ img{
   vertical-align: top;
 }
 
+html, body{
+  height: 100%;
+}
+
 body{
-  min-height: 100vh;
   position: relative;
+
+  #root, #root .App{
+    height: 100%;
+  }
 
 }
 
@@ -23,6 +30,16 @@ body{
   background-color: $color-bg;
   font-family: $font-lato;
   font-weight: 400;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.App-contents{
+  flex: 1 0 auto;
 }
 
 // container

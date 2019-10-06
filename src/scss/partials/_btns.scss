@@ -19,6 +19,7 @@
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     width: 90%;
     height: 90%;
+    background-color: $color-bg;
   }
 }
 
@@ -41,10 +42,7 @@
 .btn-add-contents{
   width: 80%;
   height: 80%;
-
   border-radius: 100%;
-  background-color: $color-bg;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,4 +59,32 @@
 .add-v{
   transform: rotate(90deg);
   position: absolute;
+}
+
+// link button
+.btn-link{
+  border-radius: 100%;
+  margin-bottom: 2rem;
+  background-color: black;
+  transition: $transition-btn;
+  cursor: pointer;
+  z-index: 50;
+  &:hover{
+    box-shadow: 2px 5px 10px rgba(0,0,0,0.2);
+  }
+  img{
+    width: 50%;
+  }
+}
+
+// back button
+.btn-back{
+  width: $size-header-logo;
+  height: $size-header-logo;
+  position: fixed;
+  top: $size-header-logo;
+  left: $size-header-logo;
+  img{
+    width: 100%;
+  }
 }

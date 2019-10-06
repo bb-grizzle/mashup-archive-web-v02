@@ -1,0 +1,88 @@
+
+.DetailThumbnail{
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: $size-thumbnail-height;
+}
+
+.thumbnail{
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/467d7b74053263.5c1f8d344b0d0.jpg);
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: auto;
+}
+
+.size-thumbnail-height{
+  padding-top: $size-thumbnail-height;
+}
+
+.wrap-detailContents{
+  background-color: $color-bg;
+  padding-top: 3rem;
+  padding-bottom: 10rem;
+  min-height: calc(100vh - #{$size-thumbnail-height});
+  
+  a{
+    display: inline-block;
+  }
+
+  .detail-title{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+  }
+
+  .detail-descript{
+    font-size: 1rem;
+    color: $color-textgray;
+    line-height: 1.5;
+    margin-bottom: .7rem;
+  }
+
+  .detail-info{
+    font-weight: 300;
+    border-top: 1px solid $color-dimgray;
+    font-style: italic;
+    padding-top: .8rem;
+
+  }
+
+  .detail-descript, .destail-info{
+    width: 50%;
+  }
+
+  @include screen-md{
+    .detail-descript, .destail-info{
+      width: 100%;
+    }
+  }
+
+  .detail-author{
+    font-weight: 700;
+    font-style: normal;
+    margin-left: 0.5rem;
+  }
+
+  .design .detail-tag{
+    color: $color-design;
+  }
+
+  .detail-tag{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    li{
+      margin-right: .5rem;
+      background-color: transparent;
+      height: $size-tag;
+      border-radius: $size-tag;
+      font-size: .8rem;
+    }
+    margin-bottom: 2rem;
+  }
+}

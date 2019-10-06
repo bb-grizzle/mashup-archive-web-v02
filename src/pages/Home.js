@@ -1,15 +1,15 @@
 import React from 'react';
-import {Greeting, CardList,Footer} from 'components';
+import {Greeting, CardList, BtnAdd} from 'components';
 
 function Home(){
   return(
     <div className="Home size-header">
-      <Greeting />
 
+      <BtnAdd/>
+      <Greeting />
       <CardList type = "recent"/>
       <CardList type = "new"/>
       
-      <Footer />
     </div>
   )
 }

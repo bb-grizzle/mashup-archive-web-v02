@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {BtnAdd,Search,CardList, Footer } from 'components';
+import {BtnAdd,Search,CardList } from 'components';
 
 function Scrap(){
   return(
@@ -8,7 +7,6 @@ function Scrap(){
       <BtnAdd />
       <Search />
       <CardList />
-      <Footer />
     </div>
   )
 }
