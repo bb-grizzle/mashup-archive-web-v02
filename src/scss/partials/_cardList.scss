@@ -97,6 +97,18 @@
     &:hover::before{
       top: 10%;
     }
+    
+    @include screen-lg {
+      &::before{
+        top: 10%;
+      }
+    }
+    @include screen-md-landscape{
+      &::before{
+        top: 10%;
+      }
+    }
+
     &:hover .card-title, &:hover .card-descript{
       bottom: 0;
     }
@@ -140,11 +152,6 @@
     transition: $transition-card;
   }
 
-  @include touchscreen{
-    ul{
-      opacity: 1;
-    }
-  }
   @include screen-lg {
     ul{
       opacity: 1;

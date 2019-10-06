@@ -17,20 +17,19 @@
     right: $size-screen-gutter + $size-header-logo;
     top: $size-header-logo * 2;
   }
+
   @include screen-md{
     .btn{
       right: $size-screen-gutter*2;
       top: initial;
       bottom: $size-screen-gutter*2;
 
-      .btn-add-contetns{
+      .btn-add-contents{
         background-color: white;
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         width: 100%;
         height: 100%;
       }
-
     }
-    
   }
 }
