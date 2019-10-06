@@ -12,6 +12,12 @@ img{
   vertical-align: top;
 }
 
+body{
+  min-height: 100vh;
+  position: relative;
+
+}
+
 // color
 body{
   background-color: $color-bg;

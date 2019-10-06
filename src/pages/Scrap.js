@@ -1,9 +1,14 @@
 import React from 'react';
 
+import {BtnAdd,Search,CardList, Footer } from 'components';
+
 function Scrap(){
   return(
-    <div className="Scrap">
-      Scrap
+    <div className="Scrap size-header">
+      <BtnAdd />
+      <Search />
+      <CardList />
+      <Footer />
     </div>
   )
 }

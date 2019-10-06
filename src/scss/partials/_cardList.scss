@@ -26,7 +26,6 @@
   }
 }
 
-
 @include screen-lg{
   .wrap-card{
     grid-template-columns: 1fr 1fr;
@@ -124,6 +123,13 @@
   }
 }
 
+.design .wrap-tag{
+  &::before{background-color: $color-design;}
+}
+.developer .wrap-tag{
+  &::before{background-color: $color-developer;}
+}
+
 .wrap-tag{
   position: absolute;
   top: $size-card-padding;
@@ -140,12 +146,13 @@
     left: 0;
     top: 0;
     opacity: 1;
-    background-color: $color-design;
     transition: $transition-card;
   }
 
+
   ul{
     display: flex;
+    flex-wrap: wrap;
     opacity: 0;
     position: relative;
     z-index: 20;
@@ -162,7 +169,6 @@
       opacity: 1;
     }
   }
-  
 
   li{
     height: $size-tag;
@@ -171,17 +177,19 @@
     
     padding: 0 7px;
     border-radius: $size-tag;
-    margin-right: 5px;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+
     color: white;
     font-weight: bold;
   }
-
-  .design li{
-    background-color: $color-design;
-  }
-  .developer li{
-    background-color: $color-developer;
-  }
+  
+}
+.design li{
+  background-color: $color-design;
+}
+.developer li{
+  background-color: $color-developer;
 }
 
 .wrap-text{

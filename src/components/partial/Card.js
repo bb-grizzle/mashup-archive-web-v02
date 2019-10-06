@@ -1,12 +1,12 @@
 import React from 'react';
 const Card = () => {
   return (
-    <div className = "Card">
+    <div className = "Card design">
       
       <div className = "wrap">
         <div className="contents">
           <div className="wrap-tag">
-            <ul className="design">
+            <ul>
               <li>tag-01</li>
               <li>tag-02</li>
               <li>tag-03</li>

@@ -5,7 +5,8 @@ const CardList = (props) => {
   return (
     <div className = "CardList">
       <div className = "con-body">
-        <h5>{props.type}</h5>
+        {props.type ? <h5>{props.type}</h5> : ""}
+        {/* <h5>{props.type}</h5> */}
 
         <div className="wrap-card">
           <Card/>
