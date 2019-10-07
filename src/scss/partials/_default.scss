@@ -32,6 +32,10 @@ body{
   font-weight: 400;
 }
 
+.fixScroll{
+  overflow: hidden;
+}
+
 .App{
   display: flex;
   flex-direction: column;

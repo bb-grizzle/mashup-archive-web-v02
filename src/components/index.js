@@ -13,6 +13,7 @@ export { default as ProjectWrapper } from "./ProjectWrapper";
 export { default as DetailThumbnail } from "./DetailThumbnail";
 export { default as DetailContents } from "./DetailContents";
 export { default as PopupScrap } from "./PopupScrap";
+export { default as ScrapItem } from "./partial/ScrapItem";
 
 
 

@@ -1,6 +1,7 @@
 // color
 $color-bg: #F8F8F8;
 $color-dimgray: #d1d1d1;
+$color-gray: #F2F2F2;
 $color-design: #FC5E5D;
 $color-developer: #4F42E9;
 $color-textgray: #5C5C5C;
@@ -21,7 +22,9 @@ $size-card-descript: 1rem;
 $size-card-descript-lineheight: 1.6;
 $size-card-padding: 1rem;
 $size-thumbnail-height: 50vh;
-
+$size-input-height: 1.8rem;
+$size-input-height-mobile: 2.5rem;
+$size-scrap-input-gap: .8rem;
 $size-btn-search: 32px;
 
 // font
@@ -32,6 +35,9 @@ $font-lato: 'lato', sans-serif;
 $transition-default: all 0.6s cubic-bezier(0.54, 0.02, 0.07, 0.99);
 $transition-btn: all .2s ease-in-out;
 $transition-card: all .5s ease-in-out;
+
+// shadow
+$shadow-btn : 0 6px 12px rgba(0,0,0,0.2);
 
 
 // media-query

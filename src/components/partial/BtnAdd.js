@@ -1,7 +1,7 @@
 import React from 'react';
-const BtnAdd = () => {
+const BtnAdd = (props) => {
   return (
-    <div className = "btn btn-add">
+    <div className = "btn btn-add"  onClick={props.event}>
       <div className = "btn-add-contents">
         <div className="add-v add-line"></div>
         <div className="add-h add-line"></div>

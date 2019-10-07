@@ -1,0 +1,316 @@
+.PopupScrap{
+  position: fixed;
+  z-index: 100;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrap-popup{
+  width: 600px;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 3px 6px 20px rgba(0,0,0,0.2);
+
+  h3{
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 3rem;
+  }
+}
+
+@include screen-md{
+  .PopupScrap{
+    padding-bottom: $size-header-logo;
+  }
+  .popup-contents{
+    padding-top: $size-header-logo;
+  }
+
+  .wrap-popup{
+    width: 100%;
+    height: 100vh;
+    padding-left: $size-screen-gutter;
+    padding-right: $size-screen-gutter;
+
+    h3{
+      font-size: 2rem;
+      line-height: $size-header-logo;
+      position: fixed;
+      width: 100%;
+      height: $size-header-logo;
+      top: 0;
+      left: 0;
+      padding-left: $size-scrap-input-gap;
+      background-color: white;
+    }
+
+
+    p, input, textarea{
+      font-size: 16px;
+    }
+
+    .btn-tag{
+      .btn-add-contents{
+        background-color: $color-gray;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.ScrapItem{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: $size-scrap-input-gap;
+
+  .scrapItem-title{
+    width: 8rem;
+    line-height: $size-input-height;
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+  @include screen-md{
+    .scrapItem-title{
+      width: 6rem;
+      line-height: $size-input-height-mobile;
+    }
+  }
+  &:first-of-type .scrapItem-title{
+    text-transform: uppercase;
+  }
+
+
+  .wrap-input{
+    display: flex;
+    flex: 1;
+  }
+
+  // input - url
+  input[type="text"]{
+    border: none;
+    background-color: $color-gray;
+    outline: none;
+    border-radius: 10px;
+    height: $size-input-height;
+
+    flex-grow: 1;
+    margin-right: 1rem;
+    padding-left: .5rem;
+    transition: $transition-default;
+
+    &:focus{
+      box-shadow: $shadow-btn;
+    }
+  }
+  @include screen-md{
+    input[type="text"]{
+      height: $size-input-height-mobile;
+      line-height: $size-input-height-mobile;
+    }
+  }
+
+  .wrap-input-url{
+    flex-wrap: wrap;
+  }
+
+  .input-thumbnail{
+    width: 100%;
+    margin-top: $size-scrap-input-gap;
+    padding-top: 60%;
+    border-radius: 10px;
+    background-color: $color-gray;
+    position: relative;
+
+    // background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/295eb785131549.5d724c2247373.jpg);
+    background-size: contain;
+    background-position: center;
+    input[type="file"]{
+      display: none;
+    }
+
+    label{
+      cursor: pointer;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    img{
+      width: 50px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      transition: $transition-default;
+    }
+    img.hide{
+      opacity: 0;
+    }
+
+    &:hover img.hide{
+      opacity: 1;
+    }
+  }
+
+  // input-radio
+  .wrap-input-check{
+    input{
+      display: none;
+    }
+    input:checked +label{
+      width: 5rem;
+      padding: 0 .8rem;
+      color: white;
+    }
+
+    .label-radio-design{
+      background-color: $color-design;
+      color: $color-design;
+      margin-right: .3rem;
+    }
+    .label-radio-develop{
+      background-color: $color-developer;
+      color: $color-developer;
+    }
+    
+    label{
+      width: $size-input-height;
+      height: $size-input-height;
+      border-radius: $size-input-height;
+      font-weight: bolder;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: capitalize;
+      overflow: hidden;
+      transition: $transition-default;
+      cursor: pointer;
+      font-style: italic;
+      &:hover{
+        box-shadow: $shadow-btn
+      }
+    }
+    @include screen-md{
+      label{
+        width: $size-input-height-mobile;
+        height: $size-input-height-mobile;
+      }
+    }
+  }
+  // input-text
+  .wrap-input-text{
+    input{
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  // input-textArea
+  .wrap-input-textArea{
+    textarea{
+      width: 100%;
+      background-color: $color-gray;
+      border-radius: 10px;
+      outline: none;
+      border: none;
+      padding: 0 .5rem;
+      line-height: 1.6;
+      box-sizing: border-box;
+      resize: none;
+      transition: $transition-default;
+      &:focus{
+        box-shadow: $shadow-btn;
+      }
+    }
+  }
+  
+  // input tag
+  .wrap-input-tag{
+    flex-wrap: wrap;
+  }
+
+  .wrap-tagList{
+    width: 100%;
+    display: flex;
+    margin-top: $size-scrap-input-gap;
+    flex-wrap: wrap;
+    li{
+      background-color: $color-gray;
+      height: $size-input-height;
+      color: white;
+      margin-right: .5rem;
+      margin-bottom: .5rem;
+      padding: 0 .5rem;
+      line-height: $size-input-height;
+      border-radius: $size-input-height;
+      transition: $transition-default;
+    }
+    @include screen-md{
+      li{
+        height: $size-input-height-mobile;
+        line-height: $size-input-height-mobile;
+        border-radius: $size-input-height-mobile;
+      }
+    }
+  }
+  .design li{
+    background-color: $color-design;
+  }
+  .develop li{
+    background-color: $color-developer;
+  }
+}
+
+
+.popup-btn{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 3rem;
+  p{
+    cursor: pointer;
+    padding: .5rem 1rem;
+    opacity: .5;
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
+
+@include screen-md{
+  .popup-btn{
+
+    .btn-scrap-cancle{
+      position: fixed;
+      top: 0;
+      height: $size-header-logo;
+      line-height: $size-header-logo;
+      right: $size-screen-gutter;
+      padding-right: 0;
+      opacity: 1;
+    }
+
+    .btn-scrap-text{
+      position: fixed;
+      bottom:  0;
+      left: 0;
+      height: $size-header-logo;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid $color-gray;
+      opacity: 1;
+    }
+  }
+}
