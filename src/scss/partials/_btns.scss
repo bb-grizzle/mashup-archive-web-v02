@@ -12,6 +12,9 @@
   cursor: pointer;
   z-index: 100;
   position: fixed;
+  width: 4rem;
+  height: 4rem;
+  
   right: $size-screen-gutter + $size-header-logo;
   top: $size-header-logo * 2;
 
@@ -86,6 +89,25 @@
   left: $size-header-logo;
   img{
     width: 100%;
+  }
+  .ic-back-w{
+    display: none;
+  }
+}
+@include screen-md{
+  .btn-back{
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: black;
+
+    img{
+      position: absolute;
+      width: 100%;
+    }
+    .ic-back-w{
+      display: block;
+    }
   }
 }
 

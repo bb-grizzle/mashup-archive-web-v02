@@ -3,7 +3,6 @@ import logo from 'img/logo.svg';
 import {Link, NavLink} from 'react-router-dom';
 
 class Header extends React.Component {
-
   state = {
     menu: false,
     nowpage: "/"

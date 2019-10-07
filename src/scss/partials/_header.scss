@@ -5,6 +5,8 @@ header{
   width: 100%;
   background-color: $color-bg;
   z-index: 100;
+  transition: $transition-default;
+  top: 0;
 
   .con-default{
     height: $size-header-logo;
@@ -107,6 +109,10 @@ nav ul{
   height: 100vh;
 }
 
+.header-hide{
+  top: $size-header-logo * -1;
+}
+
 @include screen-sm{
   header{
     border: none;
@@ -119,8 +125,6 @@ nav ul{
     &::before{
       width: 100%;
     }
-    
-
   }
 
   .logo-header{
