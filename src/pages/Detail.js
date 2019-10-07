@@ -5,6 +5,11 @@ class Detail extends React.Component {
   componentDidMount = () => {
     this.hideHeader();
     this.showBackBtn();
+    this.scrolltoTop();
+  }
+
+  scrolltoTop = () => {
+    window.scrollTo(0, 0);
   }
 
   showBackBtn = () => {
