@@ -1,5 +1,5 @@
 import React from 'react';
-import ic_back from 'img/icon_back.svg';
+import ic_back from '../../img/icon_back.svg';
 
 const BtnBack = () => {
   return (
