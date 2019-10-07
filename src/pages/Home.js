@@ -6,12 +6,20 @@ class Home extends React.Component {
     scrapToggle: false
   }
 
+  showHeader = () => {
+    document.querySelector('header').classList.remove('header-hide');
+  }
+
   handleScrapBtn = () => {
     document.body.classList.toggle("fixScroll");
     let newState = !this.state.scrapToggle;
     this.setState({
       scrapToggle: newState
     })
+  }
+
+  componentDidMount = () => {
+    this.showHeader();
   }
 
   render() {
