@@ -1,11 +1,19 @@
 import React from 'react';
-import {DetailThumbnail, DetailContents} from 'components'
-import BtnBack from 'components/partial/BtnBack';
-import {Link} from 'react-router-dom';
+import {DetailThumbnail, DetailContents} from 'components';
 
 class Detail extends React.Component {
   componentDidMount = () => {
     this.hideHeader();
+    this.showBackBtn();
+  }
+
+  showBackBtn = () => {
+    const btn_back = document.querySelector('.btn-back');
+    btn_back.classList.remove('none');
+    setTimeout(() => {
+      btn_back.classList.add('show');
+    }, 500);
+    console.log(btn_back);
   }
 
   hideHeader = () => {
@@ -22,7 +30,7 @@ class Detail extends React.Component {
     return (
       <div className = "Detail">
 
-        <Link to="/"><BtnBack /></Link>
+        {/* <Link to="/"><BtnBack /></Link> */}
         <DetailThumbnail />
         <DetailContents />
       </div>

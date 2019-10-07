@@ -65,6 +65,10 @@
   }
 }
 
+#form-scrap{
+  padding-top: 1.5rem;
+}
+
 .ScrapItem{
   display: flex;
   flex-wrap: wrap;
@@ -287,7 +291,6 @@
 
 @include screen-md{
   .popup-btn{
-
     .btn-scrap-cancle{
       position: fixed;
       top: 0;

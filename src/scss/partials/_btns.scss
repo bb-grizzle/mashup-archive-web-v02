@@ -82,16 +82,33 @@
 
 // back button
 .btn-back{
+  overflow: hidden;
   width: $size-header-logo;
   height: $size-header-logo;
   position: fixed;
   top: $size-header-logo;
   left: $size-header-logo;
+
   img{
+    transition: $transition-default;
     width: 100%;
+    transform:translateX(100%); 
   }
   .ic-back-w{
     display: none;
+  }
+}
+.btn-back.none{
+  display: none;
+}
+.btn-back.show{
+  img{
+    transform:translateX(0); 
+  }
+}
+.btn-back.hide{
+  img{
+    transform:translateX(-100%); 
   }
 }
 @include screen-md{
@@ -99,7 +116,6 @@
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: black;
 
     img{
       position: absolute;
@@ -107,6 +123,8 @@
     }
     .ic-back-w{
       display: block;
+      background-color: black;
+
     }
   }
 }

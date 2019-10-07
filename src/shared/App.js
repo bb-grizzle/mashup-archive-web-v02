@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Route, Switch} from 'react-router-dom';
-import {Header, Footer} from 'components'
+import {Route, Switch, Link} from 'react-router-dom';
+import {Header, Footer, BtnBack} from 'components'
 import {Home, Scrap, Project, Detail} from 'pages';
 
 import 'normalize.css';
@@ -15,8 +15,9 @@ class App extends Component {
     console.log("detectPage");
   }
 
+  
+
   componentDidMount = () => {
-    // this.handleScroll();
     let lastScrollTop = 0;
     let didScroll = null; 
     
@@ -49,6 +50,9 @@ class App extends Component {
     return (
       <div className = "App" onScroll={this.handleScroll}>
         <Header />
+        
+        <Link to="/"><BtnBack /></Link>
+
         <div className = "App-contents">
           <Switch>
             <Route exact path = "/" component = {Home}/>

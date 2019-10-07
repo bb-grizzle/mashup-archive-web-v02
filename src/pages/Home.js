@@ -10,6 +10,17 @@ class Home extends React.Component {
     document.querySelector('header').classList.remove('header-hide');
   }
 
+  hideBackBtn = () => {
+    const btn_back = document.querySelector('.btn-back');
+
+    btn_back.classList.add('hide');
+    setTimeout(() => {
+      btn_back.classList.add('none');
+      btn_back.classList.remove('hide');
+      btn_back.classList.remove('show');
+    }, 500);
+  }
+
   handleScrapBtn = () => {
     document.body.classList.toggle("fixScroll");
     let newState = !this.state.scrapToggle;
@@ -20,6 +31,7 @@ class Home extends React.Component {
 
   componentDidMount = () => {
     this.showHeader();
+    this.hideBackBtn();
   }
 
   render() {
