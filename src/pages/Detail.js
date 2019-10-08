@@ -18,7 +18,6 @@ class Detail extends React.Component {
     setTimeout(() => {
       btn_back.classList.add('show');
     }, 500);
-    console.log(btn_back);
   }
 
   hideHeader = () => {

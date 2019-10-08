@@ -12,13 +12,11 @@ class Home extends React.Component {
 
   hideBackBtn = () => {
     const btn_back = document.querySelector('.btn-back');
-
-    btn_back.classList.add('hide');
+    btn_back.classList.replace('show','hide');
     setTimeout(() => {
       btn_back.classList.add('none');
       btn_back.classList.remove('hide');
-      btn_back.classList.remove('show');
-    }, 500);
+    }, 1000);
   }
 
   handleScrapBtn = () => {

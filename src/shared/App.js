@@ -10,11 +10,6 @@ class App extends Component {
   state = {
     page: ""
   }
-
-  detectPage = () => {
-    console.log("detectPage");
-  }
-
   
 
   componentDidMount = () => {

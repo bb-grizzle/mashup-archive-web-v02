@@ -82,17 +82,21 @@
 
 // back button
 .btn-back{
-  overflow: hidden;
+  // border: $border-test-r;
+
   width: $size-header-logo;
   height: $size-header-logo;
   position: fixed;
   top: $size-header-logo;
   left: $size-header-logo;
 
+  overflow: hidden;
+
   img{
     transition: $transition-default;
     width: 100%;
-    transform:translateX(100%); 
+    position: relative;
+    left: 100%;
   }
   .ic-back-w{
     display: none;
@@ -103,12 +107,12 @@
 }
 .btn-back.show{
   img{
-    transform:translateX(0); 
+    left: 0;
   }
 }
 .btn-back.hide{
   img{
-    transform:translateX(-100%); 
+    left: -100%;
   }
 }
 @include screen-md{
