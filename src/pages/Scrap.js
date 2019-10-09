@@ -15,19 +15,8 @@ class Scrap extends React.Component {
     console.log("handleScrapBtn");
   }
 
-  hideBackBtn = () => {
-    const btn_back = document.querySelector('.btn-back');
-
-    btn_back.classList.add('hide');
-    setTimeout(() => {
-      btn_back.classList.add('none');
-      btn_back.classList.remove('hide');
-      btn_back.classList.remove('show');
-    }, 500);
-  }
-
   componentDidMount = () => {
-    this.hideBackBtn();
+    this.props.showHeaderEvent();
   }
 
   render() {

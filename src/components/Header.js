@@ -38,7 +38,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header>
+      <header className={this.props.hideHeader ? "header-hide" : ""}>
         <Link to = {window.innerWidth > 576 ? "/" : this.state.nowpage} className={this.state.menu ? "logo-header menu-active" : "logo-header"} onClick = {this.handleLogoClick}><img src = {logo} alt = "logo" /></Link>
 
         <div className = "con-default">

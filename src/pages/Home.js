@@ -6,10 +6,6 @@ class Home extends React.Component {
     scrapToggle: false
   }
 
-  showHeader = () => {
-    document.querySelector('header').classList.remove('header-hide');
-  }
-
   hideBackBtn = () => {
     const btn_back = document.querySelector('.btn-back');
     btn_back.classList.replace('show','hide');
@@ -28,8 +24,7 @@ class Home extends React.Component {
   }
 
   componentDidMount = () => {
-    this.showHeader();
-    this.hideBackBtn();
+    this.props.showHeaderEvent();
   }
 
   render() {

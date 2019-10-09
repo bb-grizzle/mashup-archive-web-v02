@@ -8,13 +8,44 @@ import 'scss/style.scss';
 
 class App extends Component {
   state = {
-    page: ""
+    page: "",
+    hideHeader: false,
+    hideBackBtn: true,
+    initBackBtn: false
   }
-  
+
+  initBackBtnEvent = () => {
+    this.setState({
+      initBackBtn: true
+    })
+  }
+
+  hideBackBtnEvent = () => {
+    this.setState({
+      hideBackBtn: true
+    })
+  }
+  showBackBtnEvent = () => {
+    this.setState({
+      hideBackBtn: false
+    })
+  }
+
+  hideHeaderEvent = () => {
+    this.setState({
+      hideHeader: true
+    })
+  }
+
+  showHeaderEvent = () => {
+    this.setState({
+      hideHeader: false
+    })
+  }
 
   componentDidMount = () => {
     let lastScrollTop = 0;
-    let didScroll = null; 
+    let didScroll = null;
     
     window.addEventListener('scroll', () => {
       if(didScroll){
@@ -22,39 +53,45 @@ class App extends Component {
       }
 
       didScroll = setTimeout(() => {
-
         if(window.location.pathname==="/" || window.location.pathname === "/scrap" || window.location.pathname === "/project"){
           // event
           const st = window.pageYOffset || document.documentElement.scrollTop;
           if (st > lastScrollTop){
             // downscroll code
-            document.querySelector('header').classList.add('header-hide');
+            this.setState({
+              hideHeader: true
+            })
           } else {
             // upscroll code
-            document.querySelector('header').classList.remove('header-hide');
+            this.setState({
+              hideHeader: false
+            })
           }
           lastScrollTop = st <= 0 ? 0 : st;
         }
-
-      }, 100);
-
+      }, 300);
     });
   }
 
   render() {
     return (
       <div className = "App" onScroll={this.handleScroll}>
-        <Header />
-        
-        <Link to="/"><BtnBack /></Link>
+        <Header hideHeader = {this.state.hideHeader}/>
+        <Link to="/">
+          <BtnBack 
+            hideBackBtn = {this.state.hideBackBtn} 
+            hideBackBtnEvent = {this.hideBackBtnEvent} 
+            initBackBtn = {this.state.initBackBtn}
+          />
+        </Link>
 
         <div className = "App-contents">
           <Switch>
-            <Route exact path = "/" component = {Home}/>
-            <Route exact path = "/scrap" component = {Scrap} />
-            <Route path = "/scrap/:id" component = {Detail} />
-            <Route exact path = "/project" component = {Project} />
-            <Route path = "/project/:id" component = {Detail} />
+            <Route exact path = "/" render = {() => <Home showHeaderEvent = {this.showHeaderEvent} hideBackBtn = {this.hideBackBtnEvent}/>}/>
+            <Route exact path = "/scrap" render = {()=> <Scrap showHeaderEvent = {this.showHeaderEvent}/>} />
+            <Route path = "/scrap/:id" render = {() => <Detail initBackBtnEvent = {this.initBackBtnEvent} hideHeaderEvent = {this.hideHeaderEvent} showBackBtn = {this.showBackBtnEvent}/>} />
+            <Route exact path = "/project" render = {() => <Project showHeaderEvent = {this.showHeaderEvent} />} />
+            <Route path = "/project/:id" render = {() => <Detail hideHeaderEvent = {this.hideHeaderEvent}/>} />
           </Switch>
         </div>
 

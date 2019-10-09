@@ -82,39 +82,69 @@
 
 // back button
 .btn-back{
-  // border: $border-test-r;
-
   width: $size-header-logo;
   height: $size-header-logo;
   position: fixed;
   top: $size-header-logo;
   left: $size-header-logo;
 
+  display: none;
   overflow: hidden;
 
+
   img{
-    transition: $transition-default;
     width: 100%;
     position: relative;
-    left: 100%;
+    animation-delay: .5s;
+    animation-timing-function: $transition-default;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
   }
+
   .ic-back-w{
     display: none;
   }
 }
-.btn-back.none{
-  display: none;
-}
+
 .btn-back.show{
+  display: block;
   img{
-    left: 0;
+    left: 100%;
+    animation-name: showBackBtn;
   }
 }
 .btn-back.hide{
+  display: block;
+  pointer-events: none;
+  animation-name: noneBackBtn;
+  animation-duration: 1s;
+  animation-delay: .5s;
+
   img{
+    animation-name: hideBackBtn;
+  }
+}
+
+@keyframes showBackBtn {
+  0%{
+    left: 100%;
+  }
+
+  100%{
+    left: 0;
+  }
+}
+
+@keyframes hideBackBtn{
+  0%{
+    left: 0;
+  }
+  100%{
     left: -100%;
   }
 }
+
 @include screen-md{
   .btn-back{
     top: 0;
