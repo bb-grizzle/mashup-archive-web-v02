@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
-import {Header, Footer, BtnBack} from 'components'
+import {Header, Footer, BtnBack, BtnAdd} from 'components'
 import {Home, Scrap, Project, Detail} from 'pages';
 
 import 'normalize.css';
@@ -78,12 +78,15 @@ class App extends Component {
       <div className = "App" onScroll={this.handleScroll}>
         <Header hideHeader = {this.state.hideHeader}/>
         <Link to="/">
-          <BtnBack 
-            hideBackBtn = {this.state.hideBackBtn} 
-            hideBackBtnEvent = {this.hideBackBtnEvent} 
+          <BtnBack
+            hideBackBtn = {this.state.hideBackBtn}
+            hideBackBtnEvent = {this.hideBackBtnEvent}
             initBackBtn = {this.state.initBackBtn}
           />
         </Link>
+
+
+        <BtnAdd />
 
         <div className = "App-contents">
           <Switch>

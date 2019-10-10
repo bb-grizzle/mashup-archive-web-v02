@@ -1,19 +1,16 @@
 import React from 'react';
-import {BtnAdd,Search,CardList,PopupScrap } from 'components';
+import {Search,CardList } from 'components';
 
 class Scrap extends React.Component {
-  state={
-    scrapToggle: false
-  }
+  
 
-  handleScrapBtn = () => {
-    document.body.classList.toggle("fixScroll");
-    let newState = !this.state.scrapToggle;
-    this.setState({
-      scrapToggle: newState
-    }, console.log(this.state))
-    console.log("handleScrapBtn");
-  }
+  // handleScrapBtn = () => {
+  //   document.body.classList.toggle("fixScroll");
+  //   let newState = !this.state.scrapToggle;
+  //   this.setState({
+  //     scrapToggle: newState
+  //   })
+  // }
 
   componentDidMount = () => {
     this.props.showHeaderEvent();
@@ -22,10 +19,9 @@ class Scrap extends React.Component {
   render() {
     return(
       <div className="Scrap size-header">
-        <BtnAdd event={this.handleScrapBtn}/>
         <Search />
         <CardList />
-        {this.state.scrapToggle ? <PopupScrap  event={this.handleScrapBtn}/> : ""}
+        {/* {this.state.scrapToggle ? <PopupScrap  event={this.handleScrapBtn}/> : ""} */}
       </div>
     )
   }

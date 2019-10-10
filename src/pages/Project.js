@@ -1,19 +1,7 @@
 import React from 'react';
-import {Search, ProjectWrapper, BtnAdd,PopupScrap} from 'components';
+import {Search, ProjectWrapper, BtnAdd } from 'components';
 
 class Project extends React.Component {
-  state={
-    scrapToggle: false
-  }
-
-  handleScrapBtn = () => {
-    document.body.classList.toggle("fixScroll");
-    let newState = !this.state.scrapToggle;
-    this.setState({
-      scrapToggle: newState
-    });
-  }
-
   componentDidMount = () => {
     this.props.showHeaderEvent();
   }
@@ -26,7 +14,6 @@ class Project extends React.Component {
         <Search />
         <ProjectWrapper />
         <ProjectWrapper />
-        {this.state.scrapToggle ? <PopupScrap  event={this.handleScrapBtn}/> : ""}
 
       </div>
     );
