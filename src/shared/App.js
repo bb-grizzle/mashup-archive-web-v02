@@ -109,6 +109,7 @@ class App extends Component {
   render() {
     return (
       <div className = "App" onScroll={this.handleScroll}>
+
         <Header hideHeader = {this.state.hideHeader}/>
         <Link to="/">
           <BtnBack

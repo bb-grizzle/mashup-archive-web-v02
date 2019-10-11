@@ -9,10 +9,11 @@ class Header extends React.Component {
   }
 
   toggleMenu = () => {
-    const newMenu = !this.state.menu;
-    this.setState({
-      menu: newMenu
-    })
+    this.setState(prevState => ({menu: !prevState.menu}));
+    // const newMenu = !this.state.menu;
+    // this.setState({
+    //   menu: newMenu
+    // })
   }
 
   changeNowPage = (e) => {
