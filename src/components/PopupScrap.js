@@ -56,7 +56,7 @@ class PopupScrap extends React.Component {
         <div className="wrap-popup">
           <div className="popup-contents">
             <h3>scrap</h3>
-            <form id="form-scrap">
+            <form id="form-scrap" className="form-scrap">
               <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange}/>
               <ScrapItem title="team" type="check"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="title" type="text"  eventChange = {this.handleFormChange}/>
@@ -65,7 +65,7 @@ class PopupScrap extends React.Component {
             </form>
           </div>
           <div className="popup-btn">
-            <p  className="btn-scrap-cancle" onClick={this.props.event}>취소</p>
+            <p className="btn-scrap-cancle" onClick={this.props.handleAddBtnClick}>취소</p>
             <p className="btn-scrap-text">스크랩</p>
           </div>
         </div>

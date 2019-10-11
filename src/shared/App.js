@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
 import {Route, Switch, Link} from 'react-router-dom';
-import {Header, Footer, BtnBack, BtnAdd} from 'components'
+import {Header, Footer, BtnBack, BtnAdd, PopupScrap} from 'components';
 import {Home, Scrap, Project, Detail} from 'pages';
 
 import 'normalize.css';
 import 'scss/style.scss';
 
 class App extends Component {
-  state = {
-    page: "",
-    hideHeader: false,
-    hideBackBtn: true,
-    initBackBtn: false
+  constructor(props){
+    super(props);
+    this.state = {
+      page: "",
+      hideHeader: false,
+      hideBackBtn: true,
+      initBackBtn: false,
+      hideAddBtn: false,
+      hidePopupScrap: true,
+      event: {
+        handlePageLocation: this.handlePageLocation,
+        handleAddBtnClick: this.handleAddBtnClick
+      }
+    }
   }
+
+  handleAddBtn = () => {
+    // this.state.event
+    if(this.state.page==="/"||this.state.page==="/scrap"||this.state.page==="/project"){
+      this.setState({hideAddBtn:true})
+    }
+  }
+
+  handleAddBtnClick = () => {
+    console.log("handleAddBtnClick")
+    this.setState(prevState => ({hidePopupScrap: !prevState.hidePopupScrap}));
+  }
+
 
   initBackBtnEvent = () => {
     this.setState({
@@ -25,6 +47,7 @@ class App extends Component {
       hideBackBtn: true
     })
   }
+
   showBackBtnEvent = () => {
     this.setState({
       hideBackBtn: false
@@ -43,7 +66,17 @@ class App extends Component {
     })
   }
 
+  handlePageLocation = () => {
+    const path = window.location.pathname;
+    this.setState({
+      page:path
+    });
+  }
+
   componentDidMount = () => {
+    this.handlePageLocation();
+    this.handleAddBtn();
+
     let lastScrollTop = 0;
     let didScroll = null;
     
@@ -85,16 +118,17 @@ class App extends Component {
           />
         </Link>
 
-
-        <BtnAdd />
+        {this.state.hideAddBtn ? "" : <BtnAdd handleAddBtnClick = {this.state.event.handleAddBtnClick}/>}
+        {!this.state.hideAddBtn && !this.state.hidePopupScrap ? <PopupScrap handleAddBtnClick = {this.state.event.handleAddBtnClick}/> : ""}
+        
 
         <div className = "App-contents">
           <Switch>
-            <Route exact path = "/" render = {() => <Home showHeaderEvent = {this.showHeaderEvent} hideBackBtn = {this.hideBackBtnEvent}/>}/>
-            <Route exact path = "/scrap" render = {()=> <Scrap showHeaderEvent = {this.showHeaderEvent}/>} />
-            <Route path = "/scrap/:id" render = {() => <Detail initBackBtnEvent = {this.initBackBtnEvent} hideHeaderEvent = {this.hideHeaderEvent} showBackBtn = {this.showBackBtnEvent}/>} />
-            <Route exact path = "/project" render = {() => <Project showHeaderEvent = {this.showHeaderEvent} />} />
-            <Route path = "/project/:id" render = {() => <Detail hideHeaderEvent = {this.hideHeaderEvent}/>} />
+            <Route exact path = "/" render = {() => <Home event = {this.state.event} showHeaderEvent = {this.showHeaderEvent} hideBackBtn = {this.hideBackBtnEvent}/>}/>
+            <Route exact path = "/scrap" render = {()=> <Scrap  event = {this.state.event} showHeaderEvent = {this.showHeaderEvent}/>} />
+            <Route path = "/scrap/:id" render = {() => <Detail  event = {this.state.event} initBackBtnEvent = {this.initBackBtnEvent} hideHeaderEvent = {this.hideHeaderEvent} showBackBtn = {this.showBackBtnEvent}/>} />
+            <Route exact path = "/project" render = {() => <Project  event = {this.state.event} showHeaderEvent = {this.showHeaderEvent} />} />
+            <Route path = "/project/:id" render = {() => <Detail  event = {this.state.event} hideHeaderEvent = {this.hideHeaderEvent}/>} />
           </Switch>
         </div>
 

@@ -13,6 +13,7 @@ class Scrap extends React.Component {
   // }
 
   componentDidMount = () => {
+    this.props.event.handlePageLocation();
     this.props.showHeaderEvent();
   }
 

@@ -3,6 +3,7 @@ import {DetailThumbnail, DetailContents} from 'components';
 
 class Detail extends React.Component {
   componentDidMount = () => {
+    this.props.event.handlePageLocation();
     this.props.hideHeaderEvent();
     this.props.showBackBtn();
     this.props.initBackBtnEvent();

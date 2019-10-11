@@ -3,6 +3,7 @@ import {Greeting, CardList } from 'components';
 
 class Home extends React.Component {
   componentDidMount = () => {
+    this.props.event.handlePageLocation();
     this.props.showHeaderEvent();
   }
 

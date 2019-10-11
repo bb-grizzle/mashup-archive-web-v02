@@ -189,6 +189,12 @@
   width: $size-input-height;
   height: $size-input-height;
   background-color: $color-gray;
+
+  .btn-add-contents{
+    position: relative;
+  }
+
+  
   cursor: pointer;
   border-radius: 50%;
   transition: $transition-btn;

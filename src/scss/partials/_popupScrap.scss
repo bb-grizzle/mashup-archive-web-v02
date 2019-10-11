@@ -9,6 +9,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+
+  animation-name: popupOpcity;
+  animation-duration: .4s;
+  animation-timing-function: $transition-default;
+  animation-fill-mode: forwards;
+}
+
+@keyframes popupOpcity{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+
 }
 
 .wrap-popup{
@@ -24,30 +40,48 @@
     margin-bottom: 3rem;
   }
 }
+@keyframes popupSlide{
+  0%{
+    top: 100vh;
+  }
+  100%{
+    top: 0;
+  }
+}
 
 @include screen-md{
   .PopupScrap{
-    padding-bottom: $size-header-logo;
   }
-  .popup-contents{
-    padding-top: $size-header-logo;
-  }
-
+  
   .wrap-popup{
+    position: fixed;
     width: 100%;
     height: 100vh;
-    padding-left: $size-screen-gutter;
-    padding-right: $size-screen-gutter;
+    padding: 0;
+    top: 100vh;
+    
+    animation-name: popupSlide;
+    animation-duration: .4s;
+    animation-timing-function: $transition-default;
+    animation-fill-mode: forwards;
+    
+    .popup-contents{
+      width: 100%;
+      padding-left: $size-screen-gutter;
+      padding-right: $size-screen-gutter;
+    }
 
     h3{
       font-size: 2rem;
       line-height: $size-header-logo;
-      position: fixed;
+      position: absolute;
+      z-index: 10;
       width: 100%;
       height: $size-header-logo;
       top: 0;
       left: 0;
-      padding-left: $size-scrap-input-gap;
+      background-color: white;
+      padding-left: $size-screen-gutter;
       background-color: white;
     }
 
@@ -65,9 +99,19 @@
   }
 }
 
-#form-scrap{
-  padding-top: 1.5rem;
+@include screen-md{
+  .form-scrap{
+    padding-top: $size-header-logo*1.5;
+    padding-bottom: $size-header-logo*1.5;
+    overflow: scroll;
+    height: calc(100vh - #{$size-header-logo});
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar{ 
+      display: none !important;
+    }
+  }
 }
+
 
 .ScrapItem{
   display: flex;
@@ -292,7 +336,8 @@
 @include screen-md{
   .popup-btn{
     .btn-scrap-cancle{
-      position: fixed;
+      position: absolute;
+      z-index: 10;
       top: 0;
       height: $size-header-logo;
       line-height: $size-header-logo;
@@ -302,6 +347,7 @@
     }
 
     .btn-scrap-text{
+
       position: fixed;
       bottom:  0;
       left: 0;

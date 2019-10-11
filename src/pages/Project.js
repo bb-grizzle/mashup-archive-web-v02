@@ -3,6 +3,7 @@ import {Search, ProjectWrapper, BtnAdd } from 'components';
 
 class Project extends React.Component {
   componentDidMount = () => {
+    this.props.event.handlePageLocation();
     this.props.showHeaderEvent();
   }
 
