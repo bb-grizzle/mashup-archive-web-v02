@@ -1,6 +1,6 @@
 .PopupScrap{
   position: fixed;
-  z-index: 100;
+  z-index: 150;
   width: 100vw;
   top: 0;
   left: 0;
@@ -10,24 +10,17 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
+  transition: $transition-default;
+  pointer-events: none;
 
-  animation-name: popupOpcity;
-  animation-duration: .4s;
-  animation-timing-function: $transition-default;
-  animation-fill-mode: forwards;
-}
-
-@keyframes popupOpcity{
-  0%{
-    opacity: 0;
-  }
-  100%{
+  &.animationOpcity{
+    z-index: 110;
     opacity: 1;
   }
-
 }
 
 .wrap-popup{
+  pointer-events: all;
   width: 600px;
   padding: 2rem;
   background-color: white;
@@ -40,17 +33,12 @@
     margin-bottom: 3rem;
   }
 }
-@keyframes popupSlide{
-  0%{
-    top: 100vh;
-  }
-  100%{
-    top: 0;
-  }
-}
 
 @include screen-md{
-  .PopupScrap{
+  .animationOpcity{
+    .wrap-popup{
+      top: 0;
+    }
   }
   
   .wrap-popup{
@@ -59,11 +47,7 @@
     height: 100vh;
     padding: 0;
     top: 100vh;
-    
-    animation-name: popupSlide;
-    animation-duration: .4s;
-    animation-timing-function: $transition-default;
-    animation-fill-mode: forwards;
+    transition: $transition-default;
     
     .popup-contents{
       width: 100%;

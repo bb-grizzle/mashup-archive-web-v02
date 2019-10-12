@@ -6,6 +6,10 @@ import {Home, Scrap, Project, Detail} from 'pages';
 import 'normalize.css';
 import 'scss/style.scss';
 
+
+let lastScrollTop = 0;
+let didScroll = null;
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -24,17 +28,17 @@ class App extends Component {
   }
 
   handleAddBtn = () => {
-    // this.state.event
-    if(this.state.page==="/"||this.state.page==="/scrap"||this.state.page==="/project"){
+    if(this.state.page===""||this.state.page==="/"||this.state.page==="/scrap"||this.state.page==="/project"){
+      this.setState({hideAddBtn:false})
+    }else{
       this.setState({hideAddBtn:true})
     }
   }
 
   handleAddBtnClick = () => {
-    console.log("handleAddBtnClick")
+    console.log("test");
     this.setState(prevState => ({hidePopupScrap: !prevState.hidePopupScrap}));
   }
-
 
   initBackBtnEvent = () => {
     this.setState({
@@ -68,25 +72,32 @@ class App extends Component {
 
   handlePageLocation = () => {
     const path = window.location.pathname;
+    console.log(path);
     this.setState({
       page:path
     });
   }
 
-  componentDidMount = () => {
-    this.handlePageLocation();
-    this.handleAddBtn();
+  renderBtnAdd = () =>{
+    if(this.state.page===""||this.state.page==="/"||this.state.page==="/scrap"||this.state.page==="/project"){
+      return <BtnAdd handleAddBtnClick = {this.state.event.handleAddBtnClick}/>
+    }
+  }
 
-    let lastScrollTop = 0;
-    let didScroll = null;
-    
+  renderPopupScrap = () => {
+    // if(!this.state.hidePopupScrap){
+      return <PopupScrap handleAddBtnClick = {this.state.event.handleAddBtnClick} hidePopupScrap = {this.state.hidePopupScrap}/>
+    // }
+  }
+  
+  addScrollEvent = () => {
     window.addEventListener('scroll', () => {
       if(didScroll){
         clearTimeout(didScroll);
       }
 
       didScroll = setTimeout(() => {
-        if(window.location.pathname==="/" || window.location.pathname === "/scrap" || window.location.pathname === "/project"){
+        if(window.location.pathname===""||window.location.pathname==="/" || window.location.pathname === "/scrap" || window.location.pathname === "/project"){
           // event
           const st = window.pageYOffset || document.documentElement.scrollTop;
           if (st > lastScrollTop){
@@ -106,6 +117,11 @@ class App extends Component {
     });
   }
 
+  componentDidMount = () => {
+    this.handlePageLocation();
+    this.addScrollEvent();
+  }
+
   render() {
     return (
       <div className = "App" onScroll={this.handleScroll}>
@@ -119,9 +135,8 @@ class App extends Component {
           />
         </Link>
 
-        {this.state.hideAddBtn ? "" : <BtnAdd handleAddBtnClick = {this.state.event.handleAddBtnClick}/>}
-        {!this.state.hideAddBtn && !this.state.hidePopupScrap ? <PopupScrap handleAddBtnClick = {this.state.event.handleAddBtnClick}/> : ""}
-        
+        {this.renderBtnAdd()}
+        {this.renderPopupScrap()}
 
         <div className = "App-contents">
           <Switch>

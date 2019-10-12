@@ -28,6 +28,7 @@ class PopupScrap extends React.Component {
     this.addTagtoState();
   }
 
+  
   addTagtoState = () => {
     const scrapForm = document.querySelector('#form-scrap');
     const scrapTag = scrapForm.tag;
@@ -50,9 +51,14 @@ class PopupScrap extends React.Component {
     })
   }
 
+  componentDidMount = () => {
+  }
+
   render(props) {
     return (
-      <div className="PopupScrap">
+      <div className={this.props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"}>
+      {/* <div className="PopupScrap animationOpcity"> */}
+        {console.log(this.props.hidePopupScrap)}
         <div className="wrap-popup">
           <div className="popup-contents">
             <h3>scrap</h3>
