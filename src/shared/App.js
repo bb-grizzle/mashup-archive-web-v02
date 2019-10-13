@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, Switch, Link} from 'react-router-dom';
+import {Route, Switch, Link, withRouter } from 'react-router-dom';
 import {Header, Footer, BtnBack, BtnAdd, PopupScrap} from 'components';
 import {Home, Scrap, Project, Detail} from 'pages';
 
@@ -71,10 +71,12 @@ class App extends Component {
   }
 
   handlePageLocation = () => {
-    const path = window.location.pathname;
-    console.log(path);
-    this.setState({
-      page:path
+    const { history } = this.props;
+
+    this.unlisten = history.listen((location) => {
+      this.setState({
+        page:location.pathname
+      });
     });
   }
 
@@ -85,9 +87,7 @@ class App extends Component {
   }
 
   renderPopupScrap = () => {
-    // if(!this.state.hidePopupScrap){
       return <PopupScrap handleAddBtnClick = {this.state.event.handleAddBtnClick} hidePopupScrap = {this.state.hidePopupScrap}/>
-    // }
   }
   
   addScrollEvent = () => {
@@ -120,6 +120,10 @@ class App extends Component {
   componentDidMount = () => {
     this.handlePageLocation();
     this.addScrollEvent();
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   render() {
@@ -155,4 +159,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
