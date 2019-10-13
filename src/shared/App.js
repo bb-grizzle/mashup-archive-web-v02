@@ -6,7 +6,6 @@ import {Home, Scrap, Project, Detail} from 'pages';
 import 'normalize.css';
 import 'scss/style.scss';
 
-
 let lastScrollTop = 0;
 let didScroll = null;
 
@@ -71,18 +70,27 @@ class App extends Component {
   }
 
   handlePageLocation = () => {
+    // change state page
     const { history } = this.props;
+
+    this.setState({
+      page:window.location.pathname
+    });
 
     this.unlisten = history.listen((location) => {
       this.setState({
         page:location.pathname
       });
+
     });
+    
   }
 
   renderBtnAdd = () =>{
-    if(this.state.page===""||this.state.page==="/"||this.state.page==="/scrap"||this.state.page==="/project"){
+    if(this.state.page===""||this.state.page==="/"||this.state.page==="/scrap"){
       return <BtnAdd handleAddBtnClick = {this.state.event.handleAddBtnClick}/>
+    }else{
+      return "";
     }
   }
 

@@ -1,19 +1,34 @@
 import React from 'react';
 import {Search,CardList } from 'components';
 
-class Scrap extends React.Component {
-  
+import firebase from 'lib/firebase-config.js';
+const db = firebase.firestore();
 
-  // handleScrapBtn = () => {
-  //   document.body.classList.toggle("fixScroll");
-  //   let newState = !this.state.scrapToggle;
-  //   this.setState({
-  //     scrapToggle: newState
-  //   })
-  // }
+
+class Scrap extends React.Component {
+  state = {
+    scrapItems : {}
+  }
+
+  _getScraps= () => {
+    return db.collection("scrapItems").get().
+              then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                  console.log(doc.id);
+                });
+              })
+  }
+  
+  _updateState = async () => {
+    console.log('_getScraps');
+    const scrapItems = await this._getScraps();
+    console.log(scrapItems);
+  }
 
   componentDidMount = () => {
     this.props.showHeaderEvent();
+    this._updateState();
+    // console.log(this._getScraps());
   }
 
   render() {

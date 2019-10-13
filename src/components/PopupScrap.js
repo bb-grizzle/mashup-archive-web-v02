@@ -1,6 +1,9 @@
 import React from 'react';
 import {ScrapItem} from 'components';
 
+import firebase from 'lib/firebase-config.js';
+const db = firebase.firestore();
+
 // const request = require('request');
 // const cheerio = require('cheerio');
 
@@ -12,7 +15,8 @@ class PopupScrap extends React.Component {
       thumbnail: "",
       description: "",
       tag: [],
-      type: ""
+      type: "",
+      created_at: null
     }
   }
 
@@ -47,6 +51,30 @@ class PopupScrap extends React.Component {
     // })
 
   };
+
+  handleScrap = (user_form) => () =>{
+    console.log('handleScrap');
+    this._postScrap(user_form);
+  }
+
+
+  _postScrap = (form) => {
+    // : post form to firebase
+    const props = this.props;
+    
+    const nowDate = firebase.firestore.FieldValue.serverTimestamp();
+    form["created_at"] = nowDate;
+
+    // add field
+    db.collection('scrapItems').add(form)
+      .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      props.handleAddBtnClick();
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+  }
 
   handleFormChange = (e) => {
     let newForm = this.state.scrapForm;
@@ -86,14 +114,13 @@ class PopupScrap extends React.Component {
   }
 
   componentDidMount = () => {
-
+    // this._getScrap();
   }
 
   render(props) {
     return (
       <div className={this.props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"}>
       {/* <div className="PopupScrap animationOpcity"> */}
-        {console.log(this.props.hidePopupScrap)}
         <div className="wrap-popup">
           <div className="popup-contents">
             <h3>scrap</h3>
@@ -107,7 +134,7 @@ class PopupScrap extends React.Component {
           </div>
           <div className="popup-btn">
             <p className="btn-scrap-cancle" onClick={this.props.handleAddBtnClick}>취소</p>
-            <p className="btn-scrap-text">스크랩</p>
+            <p className="btn-scrap-text" onClick = {this.handleScrap(this.state.scrapForm)}>스크랩</p>
           </div>
         </div>
       </div>
