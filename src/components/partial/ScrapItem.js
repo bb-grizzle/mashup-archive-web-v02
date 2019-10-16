@@ -5,16 +5,21 @@ import ic_img from 'img/icon_img.svg';
 const ScrapItem = (props) => {
   
   const renderItem=()=>{
+
+    // props.img_thumbnail.result
     switch(props.type){
       case "url" :{
+        const label_style = {
+          backgroundImage: props.thumbnail ? `url(${props.thumbnail})` : ""
+        }
         return <div className="wrap-input wrap-input-url">
                 <input type="text" placeholder="type url" onChange={props.eventChange} name="url"/>
                 <div className = "btn btn-check">
                   <img src = {ic_check} alt = "check"/>
                 </div>
-                <div className="input-thumbnail">
-                  <label htmlFor="file-thumbnail" className="file-thumbnail">
-                    <input type="file" id="file-thumbnail" name="thumbnail"/>
+                <div className="input-thumbnail" style = {label_style}>
+                  <label htmlFor="file-thumbnail" className={`file-thumbnail`}>
+                    <input type="file" id="file-thumbnail" name="thumbnail" onChange={props.handleImageChange}/>
                     <img src = {ic_img} alt = "thumbnail" className = {props.thumbnail ? "hide" : ""}/>
                   </label>
                 </div>

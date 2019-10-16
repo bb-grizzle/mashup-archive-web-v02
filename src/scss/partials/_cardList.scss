@@ -68,7 +68,8 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    background-image: url(https://images.unsplash.com/photo-1570201387176-8e5f6ab43fa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80);
+    // background-image: url(https://images.unsplash.com/photo-1570201387176-8e5f6ab43fa7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80);
+    background-color: $color-dimgray;
 
     border-radius: 10px;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
@@ -131,7 +132,7 @@
 .design .wrap-tag{
   &::before{background-color: $color-design;}
 }
-.developer .wrap-tag{
+.develop .wrap-tag{
   &::before{background-color: $color-developer;}
 }
 
@@ -193,7 +194,7 @@
 .design li{
   background-color: $color-design;
 }
-.developer li{
+.develop li{
   background-color: $color-developer;
 }
 

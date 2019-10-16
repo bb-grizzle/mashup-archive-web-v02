@@ -10,8 +10,8 @@ class Home extends React.Component {
     return(
       <div className="Home size-header">
         <Greeting />
-        <CardList type = "recent"/>
-        <CardList type = "new"/>
+        {/* <CardList type = "recent"/>
+        <CardList type = "new"/> */}
       </div>
     )
   }

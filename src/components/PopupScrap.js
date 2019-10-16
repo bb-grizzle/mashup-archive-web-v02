@@ -17,7 +17,10 @@ class PopupScrap extends React.Component {
       tag: [],
       type: "",
       created_at: null
-    }
+    },
+    data_id: "",
+    thumbnail_upload: null,
+    thumbnail_URL: ""
   }
 
   getHtml = () => {
@@ -57,23 +60,74 @@ class PopupScrap extends React.Component {
     this._postScrap(user_form);
   }
 
+  handleUploadThumbnail = () => {
+    console.log('handleUploadThumbnail');
+    if(this.state.thumbnail_upload){
+      this._postScrapThumbnail();
+    }
+  }
+
+  _postScrapThumbnail = () => {
+    console.log('_postScrapThumbnail');
+    // 업로드 이미지로 할지, 링크로 가져올지
+    var storageRef = firebase.storage().ref(`/scrap/${this.state.data_id}`);
+    storageRef.put(this.state.thumbnail_upload).then(snapshot => {
+      console.log('Uploaded a blob or file!');
+    })
+    .then(res => this._makeScrapDbURL());
+  }
+
+  _makeScrapDbURL = () => {
+    console.log('_fixScrapDB');
+    firebase.storage().ref(`/scrap/${this.state.data_id}`).getDownloadURL().then(url => {
+      this.setState({
+        thumbnail_URL: url
+      })
+    })
+    .then(res => this._fixDBthumbnail())
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
+  _fixDBthumbnail = () => {
+    console.log('_fixDBthumbnail');
+    var scrapItem = db.collection("scrapItems").doc(this.state.data_id);
+    scrapItem.update({
+      thumbnail: this.state.thumbnail_URL
+    })
+    .then(function() {
+        console.log("Document successfully updated!");
+    })
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+    });
+
+  }
+
 
   _postScrap = (form) => {
     // : post form to firebase
+    console.log('_postScrap');
     const props = this.props;
-    
     const nowDate = firebase.firestore.FieldValue.serverTimestamp();
     form["created_at"] = nowDate;
 
     // add field
     db.collection('scrapItems').add(form)
-      .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      props.handleAddBtnClick();
-    })
-    .catch(function(error) {
+      .then(docRef => {
+        this.setState({
+          ...this.state,
+          data_id: docRef.id
+        })
+        props.handleAddBtnClick();
+      })
+      .then(res => this.handleUploadThumbnail())
+
+      .catch(function(error) {
         console.error("Error adding document: ", error);
-    });
+      });
   }
 
   handleFormChange = (e) => {
@@ -85,6 +139,29 @@ class PopupScrap extends React.Component {
     this.setState({
       scrapForm: newForm
     })
+  }
+
+  handleImageChange = (e) => {
+    console.log('handleImageChange');
+
+    const newFile = e.target.files[0];
+    if (!e.target.files[0].type.match(/image\//)) return;
+
+    var readerContents = new FileReader();
+    readerContents.readAsDataURL(newFile);
+
+    // console.log(newFile.name);
+    // console.log(newFile);
+
+    readerContents.onload = () => {
+      this.setState({
+        scrapForm:{
+          ...this.state.scrapForm,
+          thumbnail: readerContents.result
+        },
+        thumbnail_upload: newFile
+      })
+    }
   }
 
   handleTagClicked = () => {
@@ -120,12 +197,12 @@ class PopupScrap extends React.Component {
   render(props) {
     return (
       <div className={this.props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"}>
-      {/* <div className="PopupScrap animationOpcity"> */}
         <div className="wrap-popup">
           <div className="popup-contents">
             <h3>scrap</h3>
             <form id="form-scrap" className="form-scrap">
-              <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange}/>
+              {console.log(this.state)}
+              <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange} handleImageChange = {this.handleImageChange} thumbnail={this.state.scrapForm.thumbnail}/>
               <ScrapItem title="team" type="check"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="title" type="text"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="description" type="textArea"  eventChange = {this.handleFormChange}/>

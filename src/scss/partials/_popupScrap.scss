@@ -164,8 +164,7 @@
     background-color: $color-gray;
     position: relative;
 
-    // background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/295eb785131549.5d724c2247373.jpg);
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     input[type="file"]{
       display: none;
@@ -188,6 +187,7 @@
       position: absolute;
       transition: $transition-default;
     }
+    
     img.hide{
       opacity: 0;
     }
