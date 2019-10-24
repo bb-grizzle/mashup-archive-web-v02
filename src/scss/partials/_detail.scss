@@ -7,7 +7,8 @@
 }
 
 .thumbnail{
-  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/467d7b74053263.5c1f8d344b0d0.jpg);
+  // background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/467d7b74053263.5c1f8d344b0d0.jpg);
+  background-color: $color-dimgray;
   width: 100%;
   height: 100%;
   background-size: cover;

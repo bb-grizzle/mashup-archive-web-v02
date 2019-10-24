@@ -19,6 +19,7 @@ class App extends Component {
       initBackBtn: false,
       hideAddBtn: false,
       hidePopupScrap: true,
+      targetBackBtn: "",
       event: {
         handlePageLocation: this.handlePageLocation,
         handleAddBtnClick: this.handleAddBtnClick
@@ -73,16 +74,24 @@ class App extends Component {
     const { history } = this.props;
 
     this.setState({
-      page:window.location.pathname
+      page:window.location.pathname,
     });
 
     this.unlisten = history.listen((location) => {
+      this.handleBackBtnTarget(location.pathname);
       this.setState({
         page:location.pathname
       });
-
     });
-    
+  }
+
+  handleBackBtnTarget = (location) => {
+    const page = location.split('/')[1];
+    let newState = this.state;
+    newState.targetBackBtn = page;
+    this.setState({
+      newState
+    })
   }
 
   renderBtnAdd = () =>{
@@ -94,7 +103,11 @@ class App extends Component {
   }
 
   renderPopupScrap = () => {
-      return <PopupScrap handleAddBtnClick = {this.state.event.handleAddBtnClick} hidePopupScrap = {this.state.hidePopupScrap}/>
+      return <PopupScrap 
+              handleAddBtnClick = {this.state.event.handleAddBtnClick} 
+              hidePopupScrap = {this.state.hidePopupScrap}
+              author = "MashUp"
+            />
   }
   
   addScrollEvent = () => {
@@ -135,14 +148,18 @@ class App extends Component {
 
   render() {
     return (
+      
       <div className = "App" onScroll={this.handleScroll}>
 
         <Header hideHeader = {this.state.hideHeader}/>
-        <Link to="/">
+
+        {console.log(this.state)}
+        <Link to={`/${this.state.targetBackBtn}`}>
           <BtnBack
             hideBackBtn = {this.state.hideBackBtn}
             hideBackBtnEvent = {this.hideBackBtnEvent}
             initBackBtn = {this.state.initBackBtn}
+
           />
         </Link>
 
@@ -153,9 +170,17 @@ class App extends Component {
           <Switch>
             <Route exact path = "/" render = {() => <Home event = {this.state.event} showHeaderEvent = {this.showHeaderEvent} hideBackBtn = {this.hideBackBtnEvent}/>}/>
             <Route exact path = "/scrap" render = {()=> <Scrap  event = {this.state.event} showHeaderEvent = {this.showHeaderEvent}/>} />
-            <Route path = "/scrap/:id" render = {() => <Detail  event = {this.state.event} initBackBtnEvent = {this.initBackBtnEvent} hideHeaderEvent = {this.hideHeaderEvent} showBackBtn = {this.showBackBtnEvent}/>} />
-            <Route exact path = "/project" render = {() => <Project  event = {this.state.event} showHeaderEvent = {this.showHeaderEvent} />} />
-            <Route path = "/project/:id" render = {() => <Detail  event = {this.state.event} hideHeaderEvent = {this.hideHeaderEvent}/>} />
+            <Route path = "/scrap/:id" render = {
+              ({match})=> <Detail match = {match} 
+                                  initBackBtnEvent = {this.initBackBtnEvent} 
+                                  hideHeaderEvent = {this.hideHeaderEvent} 
+                                  showBackBtn = {this.showBackBtnEvent}
+                                  />} 
+                                  
+                                  />
+            
+            <Route exact path = "/project" render = {() => <Project event = {this.state.event} showHeaderEvent = {this.showHeaderEvent} />} />
+            <Route path = "/project/:id" render = {({match}) => <Detail match = {match} event = {this.state.event} hideHeaderEvent = {this.hideHeaderEvent}/>} />
           </Switch>
         </div>
 

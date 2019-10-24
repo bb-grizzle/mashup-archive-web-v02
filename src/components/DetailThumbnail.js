@@ -1,9 +1,14 @@
 import React from 'react';
 
-const DetailThumbnail = () => {
+const DetailThumbnail = (props) => {
+  const style_thumbnail = {
+    backgroundImage : `url(${props.thumbnail})`
+  }
+  
   return (
     <div className = "DetailThumbnail">
-      <div className = "thumbnail">
+      <div className = "thumbnail" style={style_thumbnail}>
+
       </div>
     </div>
   );

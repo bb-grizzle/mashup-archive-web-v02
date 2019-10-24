@@ -1,24 +1,23 @@
 import React from 'react';
 import BtnLink from './partial/BtnLink';
-import {Link} from 'react-router-dom';
 
-const DetailContents = () => {
+const DetailContents = (props) => {
   return (
     <div className = "DetailContents size-thumbnail-height">
       <div className = "wrap-detailContents">
         <div className="con-body design">
-          <h2 className="detail-title">title</h2>
-          <p className="detail-descript">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 
-    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and 
-    scrambled it to make a type specimen book.</p>
+          <h2 className="detail-title">{props.contents.title}</h2>
+          <p className="detail-descript">{props.contents.description}</p>
           <ul className="detail-tag">
-            <li>tag01</li>
-            <li>tag02</li>
-            <li>tag03</li>
+            {props.contents.tag.map((el, index) => {
+              return <li key={index}>{`#${el}`}</li>
+            })}
           </ul>
-          <Link to="/"><BtnLink /></Link>
+          <a rel="noopener noreferrer" href={props.contents.url} target="_blank">
+            <BtnLink />
+          </a>
           
-          <p className="detail-info">Scraped by <span className="detail-author">Taewoong</span></p>
+          <p className="detail-info">Scraped by <span className="detail-author">{props.contents.author}</span></p>
         </div>
       </div>
     </div>

@@ -18,7 +18,8 @@ class PopupScrap extends React.Component {
         description: "",
         tag: [],
         type: "",
-        created_at: null
+        created_at: null,
+        author: ""
       },
       data_id: "",
       thumbnail_upload: null,
@@ -27,7 +28,6 @@ class PopupScrap extends React.Component {
         deleteTag: this.deleteTag,
         addTag: this.addTag
       }
-
     }
   }
 
@@ -231,7 +231,19 @@ class PopupScrap extends React.Component {
     }
   }
 
+  getAuthor = () => {
+    
+    this.setState({
+      ...this.state,
+      scrapForm: {
+        ...this.state.scrapForm,
+        author: this.props.author
+      }
+    })
+  }
+
   componentDidMount = () => {
+    this.getAuthor();
   }
 
   render(props) {
@@ -241,7 +253,7 @@ class PopupScrap extends React.Component {
           <div className="popup-contents">
             <h3>scrap</h3>
             <form id="form-scrap" className="form-scrap">
-              <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange} handleImageChange = {this.handleImageChange} thumbnail={this.state.scrapForm.thumbnail}/>
+              <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange} handleImageChange = {this.handleImageChange}/>
               <ScrapItem title="team" type="check"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="title" type="text"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="description" type="textArea"  eventChange = {this.handleFormChange}/>
