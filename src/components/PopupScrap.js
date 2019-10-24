@@ -129,6 +129,7 @@ class PopupScrap extends React.Component {
           data_id: docRef.id
         })
         props.handleAddBtnClick();
+        this.refreashForm();
       })
       .then(res => this.handleUploadThumbnail())
 
@@ -148,22 +149,45 @@ class PopupScrap extends React.Component {
     })
   }
 
+  refreashForm = () => {
+    // clean popup scrap form 
+    const form = document.querySelector('#form-scrap');
+
+    form.url.value="";
+    form.title.value="";
+    form.description.value="";
+    form.tag.value="";
+    for(let i=0; i<form.type.length; i++){
+      form.type[i].checked = false;
+    }
+    // refreash tags
+    this.setState({
+      ...this.state,
+      scrapForm: {
+        ...this.state.scrapForm,
+        tag: [],
+        thumbnail: ""
+      }
+    })
+    
+  }
+
   addTag = (target) => {
     console.log('handleAddTag')
     const tag = target.value;
-    if(this.state.scrapForm.tag.includes(tag)) return;
-
     target.value = "";
+
+    if(this.state.scrapForm.tag.includes(tag)) return;
+    
     let newScrapForm = this.state.scrapForm;
     let newTagArr = newScrapForm.tag;
     newTagArr.push(tag);
-
-    
 
     this.setState({
       ...this.state,
       scrapForm: newScrapForm
     })
+
   }
 
   deleteTag = (e) => {
@@ -206,37 +230,8 @@ class PopupScrap extends React.Component {
       })
     }
   }
-/*
-  handleTagClicked = () => {
-    this.addTagtoState();
-  }
-  
-  addTagtoState = () => {
-    const scrapForm = document.querySelector('#form-scrap');
-    const scrapTag = scrapForm.tag;
-
-    let newForm = this.state.scrapForm;
-    let newTag = newForm.tag;
-    newTag.push(scrapTag.value);
-
-    // add li tag
-    const wrap_tagList= document.querySelector('.wrap-tagList');
-    const li_temp = document.createElement('li');
-    li_temp.innerHTML = scrapTag.value;
-    wrap_tagList.appendChild(li_temp);
-    
-    scrapTag.value = "";
-    newForm["tag"] = newTag;
-
-    this.setState({
-      scrapForm: newForm
-    })
-  }
-
-  */
 
   componentDidMount = () => {
-    
   }
 
   render(props) {

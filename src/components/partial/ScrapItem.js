@@ -74,13 +74,18 @@ class ScrapItem extends React.Component {
 
       case "tag": {
         return <div className = "wrap-input wrap-input-tag">
-                <input type="text" name="tag" placeholder="tag" onChange={this.tagOnChange} onKeyPress={this.handleTagSubmit}/>
+                <input 
+                  type="text" name="tag" placeholder="tag" disabled={this.props.tagArr.length===4 ? true : false}
+                  onChange={this.tagOnChange} 
+                  onKeyPress={this.handleTagSubmit}/>
+
                 <div className="btn btn-tag" onClick={this.handleTagClick}>
                   <div className = "btn-add-contents">
                     <div className="add-v add-line"></div>
                     <div className="add-h add-line"></div>
                   </div>
                 </div>
+
                 <ul className = {!this.props.scrapType ? "wrap-tagList" : this.props.scrapType==="design" ? "wrap-tagList design" : "wrap-tagList develop"}>
                   
                   {this.props.tagArr.map((el,index) => {
