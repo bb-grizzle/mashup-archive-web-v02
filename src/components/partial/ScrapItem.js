@@ -3,6 +3,12 @@ import ic_check from 'img/icon_check.svg';
 import ic_img from 'img/icon_img.svg';
 
 const ScrapItem = (props) => {
+
+  const handleTagSubmit = (e) => {
+    if (e.which === 13 || e.keyCode === 13 || e.which === 32 || e.keyCode===32) {
+      props.eventAdd();
+    }
+  }
   
   const renderItem=()=>{
 
@@ -55,7 +61,7 @@ const ScrapItem = (props) => {
 
       case "tag": {
         return <div className = "wrap-input wrap-input-tag">
-                <input type="text" name="tag" placeholder="tag" onChange={props.eventChange}/>
+                <input type="text" name="tag" placeholder="tag" onChange={props.eventChange} onKeyPress={handleTagSubmit}/>
                 <div className="btn btn-tag" onClick={props.eventAdd}>
                   <div className = "btn-add-contents">
                     <div className="add-v add-line"></div>
