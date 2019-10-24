@@ -18,6 +18,17 @@ class Scrap extends React.Component {
       })
     return data;
   }
+
+  updateScrapToState = () =>{
+    console.log('f) updateScrapToState');
+    db.collection("scrapItems").orderBy("created_at","desc")
+      .onSnapshot(querySnapshot =>  {
+        this.setState({
+          ...this.state,
+          scrapItems: querySnapshot.docs
+        })
+      });
+  }
   
   _updateState = async () => {
     console.log('_getScraps');
@@ -31,6 +42,7 @@ class Scrap extends React.Component {
   componentDidMount = () => {
     this.props.showHeaderEvent();
     this._updateState();
+    this.updateScrapToState();
   }
 
   render() {

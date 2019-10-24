@@ -56,7 +56,6 @@ class PopupScrap extends React.Component {
   };
 
   handleScrap = (user_form) => () =>{
-    console.log('handleScrap');
     this._postScrap(user_form);
   }
 
@@ -150,9 +149,6 @@ class PopupScrap extends React.Component {
     var readerContents = new FileReader();
     readerContents.readAsDataURL(newFile);
 
-    // console.log(newFile.name);
-    // console.log(newFile);
-
     readerContents.onload = () => {
       this.setState({
         scrapForm:{
@@ -191,7 +187,7 @@ class PopupScrap extends React.Component {
   }
 
   componentDidMount = () => {
-    // this._getScrap();
+    
   }
 
   render(props) {
@@ -201,7 +197,6 @@ class PopupScrap extends React.Component {
           <div className="popup-contents">
             <h3>scrap</h3>
             <form id="form-scrap" className="form-scrap">
-              {console.log(this.state)}
               <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange} handleImageChange = {this.handleImageChange} thumbnail={this.state.scrapForm.thumbnail}/>
               <ScrapItem title="team" type="check"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="title" type="text"  eventChange = {this.handleFormChange}/>

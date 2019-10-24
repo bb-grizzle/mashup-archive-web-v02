@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   handleAddBtnClick = () => {
-    console.log("test");
     this.setState(prevState => ({hidePopupScrap: !prevState.hidePopupScrap}));
   }
 
