@@ -18,13 +18,6 @@ const CardList = (props) => {
         
         <div className="wrap-card">
           {renderItems(props)}
-          {/* <Link to="/scrap/test"><Card/></Link>
-          <Link to="/scrap/test"><Card/></Link>
-          <Link to="/scrap/test"><Card/></Link>
-          <Link to="/scrap/test"><Card/></Link>
-          <Link to="/scrap/test"><Card/></Link>
-          <Link to="/scrap/test"><Card/></Link>
-          <Link to="/scrap/test"><Card/></Link> */}
         </div>
       </div>
     </div>

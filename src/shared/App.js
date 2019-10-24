@@ -18,7 +18,7 @@ class App extends Component {
       hideBackBtn: true,
       initBackBtn: false,
       hideAddBtn: false,
-      hidePopupScrap: true,
+      hidePopupScrap: false,
       event: {
         handlePageLocation: this.handlePageLocation,
         handleAddBtnClick: this.handleAddBtnClick

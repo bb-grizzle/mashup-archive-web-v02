@@ -2,31 +2,44 @@ import React from 'react';
 import ic_check from 'img/icon_check.svg';
 import ic_img from 'img/icon_img.svg';
 
-const ScrapItem = (props) => {
+class ScrapItem extends React.Component {
+  state ={
+    tag: ""
+  }
 
-  const handleTagSubmit = (e) => {
-    if (e.which === 13 || e.keyCode === 13 || e.which === 32 || e.keyCode===32) {
-      props.eventAdd();
-    }
+  tagOnChange = (e) => {
+    this.setState({
+      tag: e.target
+    })
   }
   
-  const renderItem=()=>{
+  handleTagSubmit = (e) => {
+    if (e.which === 13 || e.keyCode === 13 || e.which === 32 || e.keyCode===32) {
+      // 태그를 폼 안에 넣는다.
+      this.props.event.addTag(e.target);
+    }
+  }
 
+  handleTagClick = () => {
+    this.props.event.addTag(this.state.tag);
+  }
+  
+  renderItem=()=>{
     // props.img_thumbnail.result
-    switch(props.type){
+    switch(this.props.type){
       case "url" :{
         const label_style = {
-          backgroundImage: props.thumbnail ? `url(${props.thumbnail})` : ""
+          backgroundImage: this.props.thumbnail ? `url(${this.props.thumbnail})` : ""
         }
         return <div className="wrap-input wrap-input-url">
-                <input type="text" placeholder="type url" onChange={props.eventChange} name="url"/>
+                <input type="text" placeholder="type url" onChange={this.props.eventChange} name="url"/>
                 <div className = "btn btn-check">
                   <img src = {ic_check} alt = "check"/>
                 </div>
                 <div className="input-thumbnail" style = {label_style}>
                   <label htmlFor="file-thumbnail" className={`file-thumbnail`}>
-                    <input type="file" id="file-thumbnail" name="thumbnail" onChange={props.handleImageChange}/>
-                    <img src = {ic_img} alt = "thumbnail" className = {props.thumbnail ? "hide" : ""}/>
+                    <input type="file" id="file-thumbnail" name="thumbnail" onChange={this.props.handleImageChange}/>
+                    <img src = {ic_img} alt = "thumbnail" className = {this.props.thumbnail ? "hide" : ""}/>
                   </label>
                 </div>
               </div>;
@@ -35,12 +48,12 @@ const ScrapItem = (props) => {
       case "check": {
         return <div className = "wrap-input wrap-input-check">
 
-                <input type = "radio" name="type" id="radio-design" value = "design" onChange={props.eventChange}/>
+                <input type = "radio" name="type" id="radio-design" value = "design" onChange={this.props.eventChange}/>
                 <label htmlFor="radio-design" className="label-radio-design">
                   design
                 </label>
 
-                <input type = "radio" name="type"  id="radio-develop"  value = "develop"  onChange={props.eventChange}/>
+                <input type = "radio" name="type"  id="radio-develop"  value = "develop"  onChange={this.props.eventChange}/>
                 <label htmlFor="radio-develop" className="label-radio-develop">
                   develop
                 </label>
@@ -49,44 +62,49 @@ const ScrapItem = (props) => {
 
       case "text": {
         return <div className = "wrap-input wrap-input-text">
-                <input type = "text" name="title" placeholder="title"  onChange={props.eventChange}/>
+                <input type = "text" name="title" placeholder="title"  onChange={this.props.eventChange}/>
               </div>
       }
 
       case "textArea": {
         return <div className = "wrap-input wrap-input-textArea">
-                <textarea rows="4" name="description" placeholder="description" onChange={props.eventChange}/>
+                <textarea rows="4" name="description" placeholder="description" onChange={this.props.eventChange}/>
               </div>
       }
 
       case "tag": {
         return <div className = "wrap-input wrap-input-tag">
-                <input type="text" name="tag" placeholder="tag" onChange={props.eventChange} onKeyPress={handleTagSubmit}/>
-                <div className="btn btn-tag" onClick={props.eventAdd}>
+                <input type="text" name="tag" placeholder="tag" onChange={this.tagOnChange} onKeyPress={this.handleTagSubmit}/>
+                <div className="btn btn-tag" onClick={this.handleTagClick}>
                   <div className = "btn-add-contents">
                     <div className="add-v add-line"></div>
                     <div className="add-h add-line"></div>
                   </div>
                 </div>
-                <ul className = {!props.scrapType ? "wrap-tagList" : props.scrapType==="design" ? "wrap-tagList design" : "wrap-tagList develop"}>
+                <ul className = {!this.props.scrapType ? "wrap-tagList" : this.props.scrapType==="design" ? "wrap-tagList design" : "wrap-tagList develop"}>
                   
+                  {this.props.tagArr.map((el,index) => {
+                    return <li key={index} onClick={this.props.event.deleteTag}>{el}</li>
+                  })}
                 </ul>
               </div>
       }
 
       default:{
-        return props.type;
+        return this.props.type;
       }
     }
   }
 
-  return (
-    <div className="ScrapItem">
-      <p className="scrapItem-title">{props.title}</p>
-      {renderItem()}
-      
-    </div>
-  );
+  render(){
+    return (
+      <div className="ScrapItem">
+        <p className="scrapItem-title">{this.props.title}</p>
+        {this.renderItem()}
+        
+      </div>
+    );
+  }
 }
 
 export default ScrapItem;

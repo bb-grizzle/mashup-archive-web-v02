@@ -8,19 +8,27 @@ const db = firebase.firestore();
 // const cheerio = require('cheerio');
 
 class PopupScrap extends React.Component {
-  state = {
-    scrapForm: {
-      url:"",
-      title: "",
-      thumbnail: "",
-      description: "",
-      tag: [],
-      type: "",
-      created_at: null
-    },
-    data_id: "",
-    thumbnail_upload: null,
-    thumbnail_URL: ""
+  constructor(props){
+    super(props);
+    this.state = {
+      scrapForm: {
+        url:"",
+        title: "",
+        thumbnail: "",
+        description: "",
+        tag: [],
+        type: "",
+        created_at: null
+      },
+      data_id: "",
+      thumbnail_upload: null,
+      thumbnail_URL: "",
+      event_tag: {
+        deleteTag: this.deleteTag,
+        addTag: this.addTag
+      }
+
+    }
   }
 
   getHtml = () => {
@@ -140,6 +148,45 @@ class PopupScrap extends React.Component {
     })
   }
 
+  addTag = (target) => {
+    console.log('handleAddTag')
+    const tag = target.value;
+    if(this.state.scrapForm.tag.includes(tag)) return;
+
+    target.value = "";
+    let newScrapForm = this.state.scrapForm;
+    let newTagArr = newScrapForm.tag;
+    newTagArr.push(tag);
+
+    
+
+    this.setState({
+      ...this.state,
+      scrapForm: newScrapForm
+    })
+  }
+
+  deleteTag = (e) => {
+    console.log('deleteTag');
+    let newScrap = this.state.scrapForm;
+    let newTag = newScrap.tag;
+    const deletTag = e.target.innerHTML;
+
+    let index = newTag.indexOf(deletTag);
+    newTag.splice(index, 1)
+    console.log(newTag);
+    
+    this.setState({
+      ...this.state,
+      scrapForm: {
+        ...this.state.scrapForm,
+        tag: newTag
+      }
+    })
+
+  }
+  
+
   handleImageChange = (e) => {
     console.log('handleImageChange');
 
@@ -159,7 +206,7 @@ class PopupScrap extends React.Component {
       })
     }
   }
-
+/*
   handleTagClicked = () => {
     this.addTagtoState();
   }
@@ -186,6 +233,8 @@ class PopupScrap extends React.Component {
     })
   }
 
+  */
+
   componentDidMount = () => {
     
   }
@@ -201,7 +250,7 @@ class PopupScrap extends React.Component {
               <ScrapItem title="team" type="check"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="title" type="text"  eventChange = {this.handleFormChange}/>
               <ScrapItem title="description" type="textArea"  eventChange = {this.handleFormChange}/>
-              <ScrapItem title="tag" type="tag" scrapType={this.state.scrapForm.type} eventAdd={this.handleTagClicked}/>
+              <ScrapItem title="tag" type="tag" scrapType={this.state.scrapForm.type} event = {this.state.event_tag} tagArr = {this.state.scrapForm.tag}/>
             </form>
           </div>
           <div className="popup-btn">
