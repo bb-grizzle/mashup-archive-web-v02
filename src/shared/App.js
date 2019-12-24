@@ -159,7 +159,6 @@ class App extends Component {
             hideBackBtn = {this.state.hideBackBtn}
             hideBackBtnEvent = {this.hideBackBtnEvent}
             initBackBtn = {this.state.initBackBtn}
-
           />
         </Link>
 
