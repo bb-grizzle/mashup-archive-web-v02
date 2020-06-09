@@ -1,18 +1,16 @@
-import React from 'react';
-import {ScrapItem} from 'components';
+import React from "react";
+import { ScrapItem } from "components";
+import $ from "jquery";
 
-import firebase from 'lib/firebase-config.js';
+import firebase from "lib/firebase-config.js";
 const db = firebase.firestore();
 
-// const request = require('request');
-// const cheerio = require('cheerio');
-
 class PopupScrap extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       scrapForm: {
-        url:"",
+        url: "",
         title: "",
         thumbnail: "",
         description: "",
@@ -28,11 +26,24 @@ class PopupScrap extends React.Component {
         deleteTag: this.deleteTag,
         addTag: this.addTag
       }
-    }
+    };
   }
 
   getHtml = () => {
-    // 서버에서 브라우져를 거치지 않고 내용을 가져올 수 있어야 한다. 
+    console.log("f) getHtml");
+
+    var name = "codemzy";
+    var url =
+      "http://anyorigin.com/go?url=" +
+      encodeURIComponent("https://www.codewars.com/users/") +
+      name +
+      "&callback=?";
+    console.log(url);
+    $.get(url, function(response) {
+      console.log(response);
+    });
+
+    // 서버에서 브라우져를 거치지 않고 내용을 가져올 수 있어야 한다.
     // 제일 마지막에 작업하기.
     // console.log("getHTML");
     // let title = "";
@@ -60,74 +71,83 @@ class PopupScrap extends React.Component {
 
     //   }
     // })
-
   };
 
-  handleScrap = (user_form) => () =>{
+  handleCheckClick = () => {
+    this.getHtml(this.state.scrapForm.url);
+  };
+
+  handleScrap = user_form => () => {
     this._postScrap(user_form);
-  }
+  };
 
   handleUploadThumbnail = () => {
-    console.log('handleUploadThumbnail');
-    if(this.state.thumbnail_upload){
+    console.log("handleUploadThumbnail");
+    if (this.state.thumbnail_upload) {
       this._postScrapThumbnail();
     }
-  }
+  };
 
   _postScrapThumbnail = () => {
-    console.log('_postScrapThumbnail');
+    console.log("_postScrapThumbnail");
     // 업로드 이미지로 할지, 링크로 가져올지
     var storageRef = firebase.storage().ref(`/scrap/${this.state.data_id}`);
-    storageRef.put(this.state.thumbnail_upload).then(snapshot => {
-      console.log('Uploaded a blob or file!');
-    })
-    .then(res => this._makeScrapDbURL());
-  }
+    storageRef
+      .put(this.state.thumbnail_upload)
+      .then(snapshot => {
+        console.log("Uploaded a blob or file!");
+      })
+      .then(res => this._makeScrapDbURL());
+  };
 
   _makeScrapDbURL = () => {
-    console.log('_fixScrapDB');
-    firebase.storage().ref(`/scrap/${this.state.data_id}`).getDownloadURL().then(url => {
-      this.setState({
-        thumbnail_URL: url
+    console.log("_fixScrapDB");
+    firebase
+      .storage()
+      .ref(`/scrap/${this.state.data_id}`)
+      .getDownloadURL()
+      .then(url => {
+        this.setState({
+          thumbnail_URL: url
+        });
       })
-    })
-    .then(res => this._fixDBthumbnail())
-    .catch(err => {
-      console.log(err);
-    });
-  }
+      .then(res => this._fixDBthumbnail())
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   _fixDBthumbnail = () => {
-    console.log('_fixDBthumbnail');
+    console.log("_fixDBthumbnail");
     var scrapItem = db.collection("scrapItems").doc(this.state.data_id);
-    scrapItem.update({
-      thumbnail: this.state.thumbnail_URL
-    })
-    .then(function() {
+    scrapItem
+      .update({
+        thumbnail: this.state.thumbnail_URL
+      })
+      .then(function() {
         console.log("Document successfully updated!");
-    })
-    .catch(function(error) {
+      })
+      .catch(function(error) {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
-    });
+      });
+  };
 
-  }
-
-
-  _postScrap = (form) => {
+  _postScrap = form => {
     // : post form to firebase
-    console.log('_postScrap');
+    console.log("_postScrap");
     const props = this.props;
     const nowDate = firebase.firestore.FieldValue.serverTimestamp();
     form["created_at"] = nowDate;
 
     // add field
-    db.collection('scrapItems').add(form)
+    db.collection("scrapItems")
+      .add(form)
       .then(docRef => {
         this.setState({
           ...this.state,
           data_id: docRef.id
-        })
+        });
         props.handleAddBtnClick();
         this.refreashForm();
       })
@@ -136,9 +156,9 @@ class PopupScrap extends React.Component {
       .catch(function(error) {
         console.error("Error adding document: ", error);
       });
-  }
+  };
 
-  handleFormChange = (e) => {
+  handleFormChange = e => {
     let newForm = this.state.scrapForm;
     const key = e.target.name;
     const value = e.target.value;
@@ -146,18 +166,18 @@ class PopupScrap extends React.Component {
 
     this.setState({
       scrapForm: newForm
-    })
-  }
+    });
+  };
 
   refreashForm = () => {
-    // clean popup scrap form 
-    const form = document.querySelector('#form-scrap');
+    // clean popup scrap form
+    const form = document.querySelector("#form-scrap");
 
-    form.url.value="";
-    form.title.value="";
-    form.description.value="";
-    form.tag.value="";
-    for(let i=0; i<form.type.length; i++){
+    form.url.value = "";
+    form.title.value = "";
+    form.description.value = "";
+    form.tag.value = "";
+    for (let i = 0; i < form.type.length; i++) {
       form.type[i].checked = false;
     }
     // refreash tags
@@ -168,17 +188,16 @@ class PopupScrap extends React.Component {
         tag: [],
         thumbnail: ""
       }
-    })
-    
-  }
+    });
+  };
 
-  addTag = (target) => {
-    console.log('handleAddTag')
+  addTag = target => {
+    console.log("handleAddTag");
     const tag = target.value;
     target.value = "";
 
-    if(this.state.scrapForm.tag.includes(tag)) return;
-    
+    if (this.state.scrapForm.tag.includes(tag)) return;
+
     let newScrapForm = this.state.scrapForm;
     let newTagArr = newScrapForm.tag;
     newTagArr.push(tag);
@@ -186,33 +205,30 @@ class PopupScrap extends React.Component {
     this.setState({
       ...this.state,
       scrapForm: newScrapForm
-    })
+    });
+  };
 
-  }
-
-  deleteTag = (e) => {
-    console.log('deleteTag');
+  deleteTag = e => {
+    console.log("deleteTag");
     let newScrap = this.state.scrapForm;
     let newTag = newScrap.tag;
     const deletTag = e.target.innerHTML;
 
     let index = newTag.indexOf(deletTag);
-    newTag.splice(index, 1)
+    newTag.splice(index, 1);
     console.log(newTag);
-    
+
     this.setState({
       ...this.state,
       scrapForm: {
         ...this.state.scrapForm,
         tag: newTag
       }
-    })
+    });
+  };
 
-  }
-  
-
-  handleImageChange = (e) => {
-    console.log('handleImageChange');
+  handleImageChange = e => {
+    console.log("handleImageChange");
 
     const newFile = e.target.files[0];
     if (!e.target.files[0].type.match(/image\//)) return;
@@ -222,49 +238,91 @@ class PopupScrap extends React.Component {
 
     readerContents.onload = () => {
       this.setState({
-        scrapForm:{
+        scrapForm: {
           ...this.state.scrapForm,
           thumbnail: readerContents.result
         },
         thumbnail_upload: newFile
-      })
-    }
-  }
+      });
+    };
+  };
 
   getAuthor = () => {
-    
     this.setState({
       ...this.state,
       scrapForm: {
         ...this.state.scrapForm,
         author: this.props.author
       }
-    })
-  }
+    });
+  };
 
   componentDidMount = () => {
     this.getAuthor();
-  }
+  };
 
   render(props) {
     return (
-      <div className={this.props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"}>
+      <div
+        className={
+          this.props.hidePopupScrap
+            ? "PopupScrap"
+            : "PopupScrap animationOpcity"
+        }
+      >
         <div className="wrap-popup">
           <div className="popup-contents">
-            <h3>scrap</h3>
+            <h3> scrap </h3>{" "}
             <form id="form-scrap" className="form-scrap">
-              <ScrapItem title="url" type="url" thumbnail = {this.state.scrapForm.thumbnail} eventChange = {this.handleFormChange} handleImageChange = {this.handleImageChange}/>
-              <ScrapItem title="team" type="check"  eventChange = {this.handleFormChange}/>
-              <ScrapItem title="title" type="text"  eventChange = {this.handleFormChange}/>
-              <ScrapItem title="description" type="textArea"  eventChange = {this.handleFormChange}/>
-              <ScrapItem title="tag" type="tag" scrapType={this.state.scrapForm.type} event = {this.state.event_tag} tagArr = {this.state.scrapForm.tag}/>
-            </form>
-          </div>
+              <ScrapItem
+                title="url"
+                type="url"
+                thumbnail={this.state.scrapForm.thumbnail}
+                eventChange={this.handleFormChange}
+                handleImageChange={this.handleImageChange}
+                handleCheckClick={this.handleCheckClick}
+              />{" "}
+              <ScrapItem
+                title="team"
+                type="check"
+                eventChange={this.handleFormChange}
+              />{" "}
+              <ScrapItem
+                title="title"
+                type="text"
+                eventChange={this.handleFormChange}
+              />{" "}
+              <ScrapItem
+                title="description"
+                type="textArea"
+                eventChange={this.handleFormChange}
+              />{" "}
+              <ScrapItem
+                title="tag"
+                type="tag"
+                scrapType={this.state.scrapForm.type}
+                event={this.state.event_tag}
+                tagArr={this.state.scrapForm.tag}
+              />{" "}
+            </form>{" "}
+          </div>{" "}
           <div className="popup-btn">
-            <p className="btn-scrap-cancle" onClick={this.props.handleAddBtnClick}>취소</p>
-            <p className="btn-scrap-text" onClick = {this.handleScrap(this.state.scrapForm)}>스크랩</p>
-          </div>
-        </div>
+            <p
+              className="btn-scrap-cancle"
+              onClick={this.props.handleAddBtnClick}
+            >
+              {" "}
+              취소{" "}
+            </p>{" "}
+            <p
+              className="btn-scrap-text"
+              onClick={this.handleScrap(this.state.scrapForm)}
+            >
+              {" "}
+              스크랩{" "}
+            </p>{" "}
+          </div>{" "}
+        </div>{" "}
       </div>
     );
   }

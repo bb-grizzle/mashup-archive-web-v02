@@ -34,7 +34,7 @@ class ScrapItem extends React.Component {
         return <div className="wrap-input wrap-input-url">
                 <input type="text" placeholder="type url" onChange={this.props.eventChange} name="url"/>
                 <div className = "btn btn-check">
-                  <img src = {ic_check} alt = "check"/>
+                  <img src = {ic_check} alt = "check" onClick = {this.props.handleCheckClick}/>
                 </div>
                 <div className="input-thumbnail" style = {label_style}>
                   <label htmlFor="file-thumbnail" className={`file-thumbnail`}>

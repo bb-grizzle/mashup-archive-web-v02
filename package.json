@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cheerio": "1.0.0-rc.3",
     "cross-env": "6.0.3",
     "firebase": "^7.2.0",
+    "jquery": "^3.5.1",
     "node-sass": "4.12.0",
     "normalize.css": "8.0.1",
+    "open-graph-scraper": "^4.1.1",
     "react": "16.10.2",
     "react-dom": "16.10.2",
     "react-router-dom": "5.1.2",

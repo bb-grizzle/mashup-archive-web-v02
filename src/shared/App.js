@@ -152,8 +152,7 @@ class App extends Component {
       <div className = "App" onScroll={this.handleScroll}>
 
         <Header hideHeader = {this.state.hideHeader}/>
-
-        {console.log(this.state)}
+        
         <Link to={`/${this.state.targetBackBtn}`}>
           <BtnBack
             hideBackBtn = {this.state.hideBackBtn}
