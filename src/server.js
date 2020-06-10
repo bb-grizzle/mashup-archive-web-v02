@@ -5,7 +5,9 @@ const app = express();
 
 app.get("/api/scrap", async (req, res) => {
   // 작업
-  const { url } = req.query;
+  const {
+    url
+  } = req.query;
   const obj = await getOgObj(url);
   res.json(obj);
 });
