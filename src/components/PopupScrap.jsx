@@ -1,8 +1,9 @@
 import React from "react";
 import { ScrapItem } from "components";
-import $ from "jquery";
+import axios from "axios";
 
 import firebase from "lib/firebase-config.js";
+
 const db = firebase.firestore();
 
 class PopupScrap extends React.Component {
@@ -29,48 +30,10 @@ class PopupScrap extends React.Component {
     };
   }
 
-  getHtml = () => {
+  getHtml = async url => {
     console.log("f) getHtml");
-
-    var name = "codemzy";
-    var url =
-      "http://anyorigin.com/go?url=" +
-      encodeURIComponent("https://www.codewars.com/users/") +
-      name +
-      "&callback=?";
-    console.log(url);
-    $.get(url, function(response) {
-      console.log(response);
-    });
-
-    // 서버에서 브라우져를 거치지 않고 내용을 가져올 수 있어야 한다.
-    // 제일 마지막에 작업하기.
-    // console.log("getHTML");
-    // let title = "";
-    // let description = "";
-    // let image = "";
-
-    // request('https://www.naver.com/', (error, response, html) => {
-    // if (!error && response.statusCode === 200) {
-    //     const $ = cheerio.load(html);
-
-    //     $('meta').map((i, el) => {
-    //         const promp = $(el).attr('property');
-    //         if (promp === 'og:title') {
-    //             title = $(el).attr('content');
-    //         } else if (promp === 'og:description') {
-    //             description = $(el).attr('content');
-    //         } else if (promp === 'og:image') {
-    //             image = $(el).attr('content');
-    //         }
-    //     });
-
-    //     console.log(title);
-    //     console.log(description);
-    //     console.log(image);
-
-    //   }
-    // })
+    const ogObj = await axios.get(`/api/scrap?url=${url}`);
+    console.log(ogObj.data);
   };
 
   handleCheckClick = () => {
