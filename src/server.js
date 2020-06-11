@@ -1,5 +1,7 @@
 const express = require("express");
 const cheerio = require("cheerio");
+const dotenv = require('dotenv')
+dotenv.config()
 const axios = require("axios");
 const app = express();
 
@@ -43,7 +45,7 @@ const getHTML = async url => {
     console.log(err);
   }
 };
-
+console.log(process.env.PORT)
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

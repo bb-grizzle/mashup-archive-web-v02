@@ -1,36 +1,27 @@
-import React from 'react';
-import {Search, ProjectWrapper } from 'components';
+import React, { useEffect, useState } from "react";
+import { Search, ProjectWrapper } from "components";
+import { fbGetData } from "lib/firebase";
+const Project = (props) => {
+	const [data, setData] = useState();
+	useEffect(() => {
+		const get = async () => {
+			const db = await fbGetData("projects", "created_at");
+			setData(db);
+		};
+		get();
+	}, []);
 
+	useEffect(() => {
+		props.showHeaderEvent();
+	}, []);
 
-import firebase from 'lib/firebase-config.js';
-const db = firebase.firestore();
-
-class Project extends React.Component {
-  _getProjects = () => {
-    db.collection("projects").get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-      });
-    });
-  }
-
-  componentDidMount = () => {
-    this.props.showHeaderEvent();
-    this._getProjects();
-  }
-
-  render() {
-    return (
-      <div className = "Project size-header">
-        
-        <Search />
-        {/* <ProjectWrapper />
-        <ProjectWrapper /> */}
-
-      </div>
-    );
-  }
-}
+	return (
+		<div className="Project size-header">
+			<Search />
+			<ProjectWrapper />
+			<ProjectWrapper />
+		</div>
+	);
+};
 
 export default Project;
