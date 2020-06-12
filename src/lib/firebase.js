@@ -196,7 +196,6 @@ export const deleteStateData = (data, id) => {
 }
 
 export const getThumbnail = (html, cal) => {
-
   if (html.files && html.files[0]) {
     var reader = new FileReader();
     reader.onload = async (e) => {

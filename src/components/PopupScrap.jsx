@@ -1,159 +1,143 @@
 import React, { useState, useEffect } from "react";
 import { ScrapItem } from "components";
 import axios from "axios";
+import { getThumbnail } from "../lib/firebase";
 
 // field
 const FORMINIT = {
-  url: "",
-  title: "",
-  image: "",
-  description: "",
-  tag: [],
-  type: "",
-  created_at: null,
-  author: ""
+	url: "",
+	title: "",
+	image: "",
+	description: "",
+	tag: [],
+	type: "",
+	created_at: null,
+	author: ""
 };
 
-const PopupScrap = props => {
-  const [form, setForm] = useState(FORMINIT);
-  const [tag, setTag] = useState("");
-  // add author
-  useEffect(() => {
-    setForm(n => {
-      return {
-        ...n,
-        author: props.author
-      };
-    });
-  }, []);
+const PopupScrap = (props) => {
+	const [form, setForm] = useState(FORMINIT);
+	const [tag, setTag] = useState("");
+	const [file, setFile] = useState();
+	// add author
+	useEffect(() => {
+		setForm((n) => {
+			return {
+				...n,
+				author: props.author
+			};
+		});
+	}, []);
 
-  const getHtml = async url => {
-    const ogObj = await axios.get(`/api/scrap?url=${url}`);
-    setForm(n => {
-      return {
-        ...n,
-        title: ogObj.data.title,
-        image: ogObj.data.image,
-        description: ogObj.data.description
-      };
-    });
-  };
+	const getHtml = async (url) => {
+		const ogObj = await axios.get(`/api/scrap?url=${url}`);
+		return ogObj.data;
+	};
 
-  const handleCheckClick = () => {
-    getHtml(form.url);
-  };
+	const handleCheckClick = async () => {
+		const ogs = await getHtml(form.url);
+		setForm((n) => {
+			return {
+				...n,
+				title: ogs.title,
+				image: ogs.image,
+				description: ogs.description
+			};
+		});
 
-  const handleFormChange = e => {
-    const key = e.target.name;
-    const value = e.target.value;
-    console.log(form);
-    setForm(n => {
-      return {
-        ...n,
-        [key]: value
-      };
-    });
-  };
+		if (ogs.image) {
+			setFile(null);
+		}
+	};
 
-  const handleImageChange = () => {
-    console.log("handleImageChange");
-  };
+	const handleFormChange = (e) => {
+		const key = e.target.name;
+		const value = e.target.value;
+		setForm((n) => {
+			return {
+				...n,
+				[key]: value
+			};
+		});
+	};
 
-  const handleTagChange = e => {
-    setTag(e.target.value);
-  };
+	const handleImageChange = (e) => {
+		if (e.target.files && e.target.files[0]) {
+			setFile(e.target.files[0]);
+			getThumbnail(e.target, getLocalImage);
+		}
+	};
 
-  const handleAddTag = () => {
-    setForm(f => {
-      const newArr = f.tag;
-      newArr.push(tag);
-      return {
-        ...f,
-        tag: newArr
-      };
-    });
-    setTag("");
-  };
+	const getLocalImage = (_, url) => {
+		setForm((form) => {
+			return {
+				...form,
+				image: url
+			};
+		});
+	};
 
-  const handleDeleteTag = id => {
-    setForm(n => {
-      return {
-        ...n,
-        tag: n.tag.filter((t, index) => index !== id)
-      };
-    });
-  };
+	const handleTagChange = (e) => {
+		setTag(e.target.value);
+	};
 
-  const handleScrap = () => {
-    console.log("handleScrap");
-    console.log(form);
-  };
+	const handleAddTag = () => {
+		setForm((f) => {
+			const newArr = f.tag;
+			newArr.push(tag);
+			return {
+				...f,
+				tag: newArr
+			};
+		});
+		setTag("");
+	};
 
-  const handleCancleClick = () => {
-    console.log("handleCancleClick");
-    console.log();
-    setForm(FORMINIT);
-    props.handleAddBtnClick();
-  };
+	const handleDeleteTag = (id) => {
+		setForm((n) => {
+			return {
+				...n,
+				tag: n.tag.filter((t, index) => index !== id)
+			};
+		});
+	};
 
-  return (
-    <div
-      className={
-        props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"
-      }
-    >
-      <div className="wrap-popup">
-        <div className="popup-contents">
-          <h3> scrap </h3>
-          <form id="form-scrap" className="form-scrap">
-            <ScrapItem
-              title="url"
-              type="url"
-              thumbnail={form.image}
-              eventChange={handleFormChange}
-              handleImageChange={handleImageChange}
-              handleCheckClick={handleCheckClick}
-            />
-            <ScrapItem
-              title="team"
-              type="check"
-              eventChange={handleFormChange}
-            />
-            <ScrapItem
-              title="title"
-              type="text"
-              value={form.title}
-              eventChange={handleFormChange}
-            />
-            <ScrapItem
-              title="description"
-              type="textArea"
-              value={form.description}
-              eventChange={handleFormChange}
-            />
-            <ScrapItem
-              title="tag"
-              type="tag"
-              scrapType={form.type}
-              value={tag}
-              addTag={handleAddTag}
-              deleteTag={handleDeleteTag}
-              handleTextChange={handleTagChange}
-              tagArr={form.tag}
-            />
-          </form>
-        </div>
-        <div className="popup-btn">
-          <p className="btn-scrap-cancle" onClick={handleCancleClick}>
-            취소
-          </p>
-          <p className="btn-scrap-text" onClick={handleScrap}>
-            스크랩
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+	const handleScrap = () => {
+		console.log("handleScrap");
+		console.log("form: ", form);
+		console.log("file: ", file);
+	};
+
+	const handleCancleClick = () => {
+		console.log("handleCancleClick");
+		setForm(FORMINIT);
+		props.handleAddBtnClick();
+	};
+
+	return (
+		<div className={props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"}>
+			<div className="wrap-popup">
+				<div className="popup-contents">
+					<h3> scrap </h3>
+					<form id="form-scrap" className="form-scrap">
+						<ScrapItem title="url" type="url" value={form.url} thumbnail={form.image} eventChange={handleFormChange} handleImageChange={handleImageChange} handleCheckClick={handleCheckClick} />
+						<ScrapItem title="team" type="check" eventChange={handleFormChange} />
+						<ScrapItem title="title" type="text" value={form.title} eventChange={handleFormChange} />
+						<ScrapItem title="description" type="textArea" value={form.description} eventChange={handleFormChange} />
+						<ScrapItem title="tag" type="tag" scrapType={form.type} value={tag} addTag={handleAddTag} deleteTag={handleDeleteTag} handleTextChange={handleTagChange} tagArr={form.tag} />
+					</form>
+				</div>
+				<div className="popup-btn">
+					<p className="btn-scrap-cancle" onClick={handleCancleClick}>
+						취소
+					</p>
+					<p className="btn-scrap-text" onClick={handleScrap}>
+						스크랩
+					</p>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default PopupScrap;
