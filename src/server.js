@@ -45,8 +45,8 @@ const getHTML = async url => {
     console.log(err);
   }
 };
-console.log(process.env.PORT)
-const PORT = process.env.PORT || 5000;
+console.log(process.env.SCRAPPORT)
+const PORT = process.env.SCRAPPORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`server start port : ${PORT}`);
