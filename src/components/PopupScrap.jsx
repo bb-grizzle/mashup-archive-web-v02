@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ScrapItem } from "components";
 import axios from "axios";
-import { getThumbnail } from "../lib/firebase";
+import { getThumbnail, fbUploadData, fbUploadStorage, fbUpdateData } from "../lib/firebase";
 
 // field
+const COL = "scrapItems";
 const FORMINIT = {
 	url: "",
 	title: "",
@@ -11,8 +12,10 @@ const FORMINIT = {
 	description: "",
 	tag: [],
 	type: "",
-	created_at: null,
-	author: ""
+	createdAt: null,
+	updatedAt: null,
+	author: "",
+	useFb: false
 };
 
 const PopupScrap = (props) => {
@@ -102,14 +105,18 @@ const PopupScrap = (props) => {
 		});
 	};
 
-	const handleScrap = () => {
+	const handleScrap = async () => {
 		console.log("handleScrap");
-		console.log("form: ", form);
-		console.log("file: ", file);
+		if (!file) {
+			await fbUploadData(COL, form);
+		} else {
+			const id = await fbUploadData(COL, { ...form, useFb: true });
+			const image = await fbUploadStorage(`${COL}/${id}`, file.name, file);
+			await fbUpdateData(COL, id, { ...form, image });
+		}
 	};
 
 	const handleCancleClick = () => {
-		console.log("handleCancleClick");
 		setForm(FORMINIT);
 		props.handleAddBtnClick();
 	};

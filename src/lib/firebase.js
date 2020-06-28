@@ -95,7 +95,7 @@ export const fbUploadData = async (col, data) => {
   try {
     const upload = await db.collection(col).add({
       ...data,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp()
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     const id = await upload.id;
     console.log('upload is complete');
@@ -109,7 +109,10 @@ export const fbUpdateData = async (col, id, data) => {
 
   try {
     const ref = db.collection(col).doc(id);
-    await ref.update(data);
+    await ref.update({
+      ...data,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
     console.log('update is complete');
   } catch (err) {
     console.log(err);
