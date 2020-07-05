@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ScrapItem } from "components";
 import axios from "axios";
 import { getThumbnail, fbUploadData, fbUploadStorage, fbUpdateData } from "../lib/firebase";
+import { isEmptyObj } from "../Utilites";
+import { AppContext } from "../shared/App";
 
 // field
 const COL = "scrapItems";
@@ -20,6 +22,7 @@ const FORMINIT = {
 
 const PopupScrap = (props) => {
 	const [form, setForm] = useState(FORMINIT);
+	const { user } = useContext(AppContext);
 	const [tag, setTag] = useState("");
 	const [file, setFile] = useState();
 	// add author
@@ -27,10 +30,10 @@ const PopupScrap = (props) => {
 		setForm((n) => {
 			return {
 				...n,
-				author: props.author
+				author: user.name
 			};
 		});
-	}, [props.author]);
+	}, [user]);
 
 	const getHtml = async (url) => {
 		const ogObj = await axios.get(`/api/scrap?url=${url}`);
@@ -39,6 +42,8 @@ const PopupScrap = (props) => {
 
 	const handleCheckClick = async () => {
 		const ogs = await getHtml(form.url);
+		if (!ogs.title) return;
+
 		setForm((n) => {
 			return {
 				...n,
@@ -106,7 +111,6 @@ const PopupScrap = (props) => {
 	};
 
 	const handleScrap = async () => {
-		console.log("handleScrap");
 		let newItem = null;
 		if (!file) {
 			newItem = {
@@ -116,6 +120,7 @@ const PopupScrap = (props) => {
 					prevFile: null
 				}
 			};
+			console.log(newItem);
 			await fbUploadData(COL, newItem);
 		} else {
 			const id = await fbUploadData(COL, { ...form, useFb: true });
@@ -124,17 +129,23 @@ const PopupScrap = (props) => {
 				...form,
 				image
 			};
-			await fbUpdateData(COL, id, newItem);
+			// await fbUpdateData(COL, id, newItem);
 		}
+
+		popupInit();
 	};
 
-	const handleCancleClick = () => {
+	const popupInit = () => {
 		setForm(FORMINIT);
 		props.handleAddBtnClick();
 	};
 
+	const handleCancleClick = () => {
+		popupInit();
+	};
+
 	return (
-		<div className={props.hidePopupScrap ? "PopupScrap" : "PopupScrap animationOpcity"}>
+		<div className={!props.active ? "PopupScrap" : "PopupScrap animationOpcity"}>
 			<div className="wrap-popup">
 				<div className="popup-contents">
 					<h3> scrap </h3>

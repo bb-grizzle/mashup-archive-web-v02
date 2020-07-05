@@ -15,3 +15,11 @@ export const setFullHeight = () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   });
 }
+
+export const isEmptyObj = (obj) => {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key))
+      return false;
+  }
+  return true;
+}
