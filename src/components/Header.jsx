@@ -22,7 +22,7 @@ const Header = withRouter(({ location: { pathname } }) => {
 
 	return (
 		<header className={`${false && "header-hide"} ${isMenuClicked && "menuClicked"}`}>
-			<div className="con-default">
+			<div className="con-default con-body">
 				<Link to={"/"} className={"logo-header"}>
 					<img src={logo} alt="logo" />
 				</Link>

@@ -1,6 +1,5 @@
-
 // init
-*{
+* {
   box-sizing: border-box;
   text-decoration: none;
   padding: 0;
@@ -8,62 +7,76 @@
   list-style: none;
 }
 
-img{
+img {
   vertical-align: top;
 }
 
-html, body{
+html,
+body {
   height: 100%;
 }
 
-body{
+body {
   position: relative;
 
-  #root, #root .App{
+  #root,
+  #root .App {
     height: 100%;
   }
 
 }
 
 // color
-body{
+body {
   background-color: $color-bg;
   font-family: $font-lato;
   font-weight: 400;
 }
 
-.fixScroll{
+.fixScroll {
   overflow: hidden;
 }
 
-.App{
+.App {
   display: flex;
   flex-direction: column;
 }
 
 
-.App-contents{
+.App-contents {
   flex: 1 0 auto;
 }
 
 // container
-.con-default{
+.con-default {
   width: calc(100vw - #{$size-header-logo}*2 - 2.5rem);
   margin: 0 auto;
 }
 
 $size-screen-gutter: 1.2rem;
 $size-con-body: calc(100vw - #{$size-header-logo}*2 - #{$size-screen-gutter}*2);
-.con-body{
+
+.con-body {
   width: $size-con-body;
   margin: 0 auto;
 }
 
-@include screen-md{
+@include screen-md {
   $size-screen-gutter: 20px;
   $size-con-body: calc(100vw - #{$size-screen-gutter}*2);
-  .con-body{
+
+  .con-body {
     width: $size-con-body;
   }
 }
 
+.height-contents {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+
+  padding-top: $size-header-logo;
+
+  @include screen-md {
+    padding-top: $size-header-md;
+  }
+}

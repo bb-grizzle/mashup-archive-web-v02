@@ -3,7 +3,7 @@ import { Route, Switch, Link, withRouter } from "react-router-dom";
 import { Header, Footer, BtnBack, BtnAdd, PopupScrap } from "components";
 import { Scrap, Project, Detail, NotFound, Signin } from "pages";
 import useSize from "../Hooks/useSize";
-import { breakPoint } from "../Utilites";
+import { breakPoint, setFullHeight } from "../Utilites";
 
 export const AppContext = createContext();
 
@@ -22,6 +22,10 @@ const App = () => {
 			setNowMedia(null);
 		}
 	}, [size]);
+
+	useEffect(() => {
+		setFullHeight();
+	}, []);
 
 	return (
 		<div className="App">

@@ -37,7 +37,6 @@ header {
     justify-content: space-between;
 
     @include screen-md {
-      width: calc(100% - #{$size-offset-md});
       height: 100%;
       position: relative;
       z-index: 1;
@@ -61,7 +60,7 @@ header {
       position: relative;
 
       img {
-        width: initial;
+        width: inherit;
         height: 100%;
       }
     }
