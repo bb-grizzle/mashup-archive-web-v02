@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { ScrapItem } from "components";
 import axios from "axios";
 import { getThumbnail, fbUploadData, fbUploadStorage, fbUpdateData } from "../lib/firebase";
-import { isEmptyObj } from "../Utilites";
 import { AppContext } from "../shared/App";
 
 // field

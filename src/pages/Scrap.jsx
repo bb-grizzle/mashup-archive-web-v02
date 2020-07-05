@@ -3,10 +3,20 @@ import { Search, CardList } from "components";
 import { fbGetData } from "lib/firebase";
 import BtnAdd from "../components/partial/BtnAdd";
 import PopupScrap from "../components/PopupScrap";
+const COL = "scrapItems";
 
 const Scrap = () => {
 	const [term, setTerm] = useState("");
 	const [isAddClicked, setIsAddClicked] = useState(false);
+	const [data, setData] = useState();
+
+	useEffect(() => {
+		const get = async () => {
+			const dataTemp = await fbGetData(COL, "createdAt");
+			setData(dataTemp);
+		};
+		get();
+	}, []);
 
 	const onTermChange = (e) => {
 		setTerm(e.target.value);
@@ -24,7 +34,8 @@ const Scrap = () => {
 					<BtnAdd onClick={handleAddBtnClick} />
 				</div>
 			</div>
-			{/* {data ? <CardList items={data} /> : ""} */}
+
+			{data ? <CardList items={data} /> : ""}
 
 			<PopupScrap active={isAddClicked} handleAddBtnClick={handleAddBtnClick} />
 		</div>
