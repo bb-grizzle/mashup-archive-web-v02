@@ -15,6 +15,7 @@ $border-test-r: 2px solid red;
 
 // size
 $size-header-logo: 4rem;
+$size-header-md: 5rem;
 $size-card: 100%;
 $size-tag: 1.6rem;
 $size-card-title: 1.4rem;
@@ -26,13 +27,18 @@ $size-input-height: 1.8rem;
 $size-input-height-mobile: 2.5rem;
 $size-scrap-input-gap: .8rem;
 $size-btn-search: 32px;
-
+$size-offset-md: 18px;
+// -gnb
+$width-gnb-md: 80px;
 // font
-$font-nanum: 'NanumSquare', sans-serif;
-$font-lato: 'lato', sans-serif;
+$font-nanum: 'NanumSquare',
+sans-serif;
+$font-lato: 'lato',
+sans-serif;
 
 // transition
 $transition-default: all 0.6s cubic-bezier(0.54, 0.02, 0.07, 0.99);
+$transition-gnb: all 0.3s cubic-bezier(0.54, 0.02, 0.07, 0.99);
 $transition-btn: all .2s ease-in-out;
 $transition-card: all .5s ease-in-out;
 
@@ -40,7 +46,7 @@ $transition-card: all .5s ease-in-out;
 $easing-default: cubic-bezier(0.54, 0.02, 0.07, 0.99);
 
 // shadow
-$shadow-btn : 0 6px 12px rgba(0,0,0,0.2);
+$shadow-btn : 0 6px 12px rgba(0, 0, 0, 0.2);
 
 
 // media-query
@@ -50,52 +56,60 @@ $screen-md-max: 768px;
 $screen-sm-max: 576px;
 
 @mixin screen-xl {
-  @media screen  and (max-width: $screen-xl-max){
+  @media screen and (max-width: $screen-xl-max) {
     @content;
   }
 }
 
 @mixin screen-lg {
-  @media screen  and (max-width: $screen-lg-max){
+  @media screen and (max-width: $screen-lg-max) {
     @content;
   }
 }
 
-@mixin screen-xl-portrait{
-  @media screen  and (max-width: $screen-xl-max) and (orientation: portrait){
+@mixin screen-xl-portrait {
+  @media screen and (max-width: $screen-xl-max) and (orientation: portrait) {
     @content;
   }
 }
 
 @mixin screen-md {
-  @media screen  and (max-width: $screen-md-max) and (hover: none) and (pointer: coarse){
+  @media screen and (max-width: $screen-md-max) {
     @content;
   }
 }
 
+
 @mixin screen-md-landscape {
-  @media screen  and (max-height: $screen-md-max) and (orientation: landscape) and (hover: none) and (pointer: coarse){
+  @media screen and (max-height: $screen-md-max) and (orientation: landscape) {
     @content;
   }
 }
 
 @mixin screen-sm {
-  @media screen and (max-width: $screen-sm-max) and (hover: none) and (pointer: coarse){
+  @media screen and (max-width: $screen-sm-max) {
     @content;
   }
 }
 
-@mixin touchscreen{
-  @media (hover: none) and (pointer: coarse){
+@mixin touchscreen {
+  @media (hover: none) and (pointer: coarse) {
     @content;
   }
 }
 
 
-@include screen-md{
-  html{
+@mixin onHover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+
+
+
+@include screen-md {
+  html {
     font-size: 12px;
   }
 }
-
-

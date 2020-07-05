@@ -3,25 +3,25 @@ import { Search, CardList } from "components";
 import { fbGetData } from "lib/firebase";
 
 const Scrap = (props) => {
-	const [data, setData] = useState();
-	const [scrapCount, setScrapCount] = useState(0);
+	// const [data, setData] = useState();
 
-	useEffect(() => {
-		const _get = async () => {
-			const db = await fbGetData("scrapItems", "created_at");
-			setData(db);
-		};
-		_get();
-	}, []);
+	// useEffect(() => {
+	// 	const _get = async () => {
+	// 		const db = await fbGetData("scrapItems", "createdAt");
+	// 		setData(db);
+	// 	};
+	// 	_get();
+	// }, []);
 
-	useEffect(() => {
-		props.showHeaderEvent();
-	}, []);
+	// useEffect(() => {
+	// 	props.showHeaderEvent();
+	// }, []);
 
 	return (
 		<div className="Scrap size-header">
-			<Search />
-			{data ? <CardList items={data} /> : ""}
+			Scrap
+			{/* <Search /> */}
+			{/* {data ? <CardList items={data} /> : ""} */}
 		</div>
 	);
 };

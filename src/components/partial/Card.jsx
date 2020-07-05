@@ -1,7 +1,7 @@
 import React from "react";
 const Card = (props) => {
 	const card_style = {
-		backgroundImage: props.item.thumbnail ? `url(${props.item.thumbnail})` : ""
+		backgroundImage: `url('${props.item.image.fileUrl}')`
 	};
 
 	return (

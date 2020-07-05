@@ -30,7 +30,7 @@ const PopupScrap = (props) => {
 				author: props.author
 			};
 		});
-	}, []);
+	}, [props.author]);
 
 	const getHtml = async (url) => {
 		const ogObj = await axios.get(`/api/scrap?url=${url}`);
@@ -107,12 +107,24 @@ const PopupScrap = (props) => {
 
 	const handleScrap = async () => {
 		console.log("handleScrap");
+		let newItem = null;
 		if (!file) {
-			await fbUploadData(COL, form);
+			newItem = {
+				...form,
+				image: {
+					fileUrl: form.image,
+					prevFile: null
+				}
+			};
+			await fbUploadData(COL, newItem);
 		} else {
 			const id = await fbUploadData(COL, { ...form, useFb: true });
 			const image = await fbUploadStorage(`${COL}/${id}`, file.name, file);
-			await fbUpdateData(COL, id, { ...form, image });
+			newItem = {
+				...form,
+				image
+			};
+			await fbUpdateData(COL, id, newItem);
 		}
 	};
 

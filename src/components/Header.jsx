@@ -1,81 +1,59 @@
-import React from 'react';
-import logo from 'img/logo.svg';
-import {Link, NavLink} from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import logo from "img/logo.svg";
+import { Link, NavLink, withRouter } from "react-router-dom";
+import { AppContext } from "../shared/App";
+import { breakPoint } from "../Utilites";
 
-class Header extends React.Component {
-  state = {
-    menu: false,
-    nowpage: "/"
-  }
+const Header = withRouter(({ location: { pathname } }) => {
+	const { user, nowMedia } = useContext(AppContext);
+	const [isMenuClicked, setIsMenuClicked] = useState(false);
 
-  toggleMenu = () => {
-    this.setState(prevState => ({menu: !prevState.menu}));
-    // const newMenu = !this.state.menu;
-    // this.setState({
-    //   menu: newMenu
-    // })
-  }
+	const onLinkClicked = (e) => {
+		if (nowMedia <= breakPoint.md) {
+			setIsMenuClicked((n) => !n);
+		}
+	};
 
-  changeNowPage = (e) => {
-    let nowpage = e.target.innerHTML;
-    if(nowpage === "home"){
-      nowpage = "/"
-    }
+	useEffect(() => {
+		if (nowMedia <= breakPoint.md) {
+			setIsMenuClicked(false);
+		}
+	}, [nowMedia]);
 
-    this.setState({
-      nowpage: nowpage
-    })
-  }
+	return (
+		<header className={`${false && "header-hide"} ${isMenuClicked && "menuClicked"}`}>
+			<div className="con-default">
+				<Link to={"/"} className={"logo-header"}>
+					<img src={logo} alt="logo" />
+				</Link>
 
-  handleLogoClick = () => {
-    this.toggleMenu();
-  }
+				{/* gnb - web */}
+				<div className="gnb">
+					<div className="header-info">
+						<div className="user-info">
+							<h3 className="user-team">{user.team}</h3>
+							<h4 className="user-name">{user.name}</h4>
+						</div>
+					</div>
 
-  handleMenuClick = (e) => {
-    this.toggleMenu();
-    this.changeNowPage(e);
-  }
-
-
-  render() {
-    return (
-      <header className={this.props.hideHeader ? "header-hide" : ""}>
-        <Link to = {window.innerWidth > 576 ? "/" : this.state.nowpage} className={this.state.menu ? "logo-header menu-active" : "logo-header"} onClick = {this.handleLogoClick}><img src = {logo} alt = "logo" /></Link>
-
-        <div className = "con-default">
-          {/* gnb - web */}
-          <div className = "gnb">
-            <div className="header-info">
-              <div className="user-info">
-                <h3 className="user-team">design</h3>
-                <h4 className = "user-name">Taewoong</h4>
-              </div>
-            </div>
-
-            <nav className="nav-web">
-              <ul>
-                <li>
-                  <NavLink to = "/scrap" >scrap</NavLink>
-                </li>
-                <li><NavLink to = "/project" >project</NavLink></li>
-              </ul>
-            </nav>
-          </div>
-
-          {/* gnb - movile */}
-          <nav className={this.state.menu ? "nav-mobile nav-mobile-active" : "nav-mobile"}>
-            <ul>
-              <li><NavLink exact to = "/" onClick = {this.handleMenuClick} >home</NavLink></li>
-              <li><NavLink to = "/scrap"  onClick = {this.handleMenuClick} >scrap</NavLink></li>
-              <li><NavLink to = "/project"  onClick = {this.handleMenuClick} >project</NavLink></li>
-            </ul>
-          </nav>
-        </div>
-
-        
-      </header>
-    );
-  }
-}
+					<nav className="nav-web">
+						<ul className={`${isMenuClicked && "menuClicked"}`}>
+							<li className={`${pathname === "/" && `active`}`}>
+								<NavLink exact to="/" onClick={onLinkClicked}>
+									scrap
+								</NavLink>
+							</li>
+							<li className={`${pathname === "/project" && `active`}`}>
+								<NavLink to="/project" onClick={onLinkClicked}>
+									project
+								</NavLink>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+	);
+});
 
 export default Header;
