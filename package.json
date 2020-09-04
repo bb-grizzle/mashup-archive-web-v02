@@ -11,7 +11,7 @@
     "express": "^4.17.1",
     "firebase": "^7.2.0",
     "http-proxy-middleware": "^1.0.4",
-    "node-sass": "4.12.0",
+    "node-sass": "4.13.1",
     "nodemon": "^2.0.4",
     "normalize.css": "8.0.1",
     "react": "16.10.2",
